@@ -1,7 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import Image from "next/image"
 import Perfil from '../../public/images/perfil.jpeg'
-import { ChevronRight, FlaskConical, MessageCircle, MoreHorizontal, Share2, X } from "lucide-react"
+import { ChevronRight, FlaskConical, MoreHorizontal, Share2, X } from "lucide-react"
 import { useEffect, useState } from "react"
 
 const Navbar = () => {
@@ -35,8 +35,8 @@ const Navbar = () => {
     }
 
     return (
-        <nav className="flex w-full justify-center fixed mt-28">
-            <div className={`mx-4 flex w-full lg:w-2/5 border-2 border-zinc-900 bg-gray-50/70 items-center justify-between px-4 py-2 rounded-full backdrop-blur-sm transition-visible duration-500 ease-in-out md:${isMenuVisible ? '' : 'invisible'}`}>
+        <nav className="fixed flex top-8 w-full justify-center px-2">
+            <div className={`flex w-full lg:w-2/5 border-2 border-zinc-900 bg-gray-50/70 items-center justify-between px-4 py-2 rounded-full backdrop-blur-sm transition-visible duration-500 ease-in-out md:${isMenuVisible ? '' : 'invisible'}`}>
                 <Image className="rounded-xl border-2 border-zinc-900" src={Perfil} alt="Lucas Rodrigues" width={50} height={50} />
                 <h5 className="mb-1 text-xl font-semibold text-zinc-800">Lista diária</h5>
                 <Dialog.Root>
