@@ -1,9 +1,13 @@
-const { default: Navbar } = require("./Navbar")
+import Footer from "./Footer";
+import Navbar from "./Navbar";
+import Tasks from "./Tasks";
 
 const Daily = () => {
     return (
-        <div className="flex flex-col h-full items-center justify-center bg-zinc-900">
+        <div className="min-h-screen min-w-screen bg-zinc-950">
             <Navbar />
+            <Tasks />
+            <Footer />
         </div>
     )
 }
