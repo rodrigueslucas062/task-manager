@@ -19,16 +19,14 @@ const TaskItem = ({ shadowStyle, index }) => {
                     </div>
                     <input
                         type="text"
-                        className="bg-transparent lg:w-[435px] focus:outline-none"
+                        className="bg-transparent focus:outline-none lg:w-[320px] border-2 border-zinc-700"
                         placeholder="Digite aqui..."
                         value={taskText}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="flex gap-2 lg:gap-4">
-                    {taskText &&
-                        <span className="bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl">Feito!</span>
-                    }
+                    <span className={`${taskText ? 'bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl visible' : 'bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl invisible'}`}>Feito!</span>
                     <Dialog.Trigger
                         className="lg:invisible group-hover:visible bg-white hover:bg-gray-200 p-2 rounded-full"
                         onClick={(e) => e.stopPropagation()}>
