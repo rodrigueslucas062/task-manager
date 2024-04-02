@@ -19,7 +19,7 @@ const TaskItem = ({ shadowStyle, index }) => {
                     </div>
                     <input
                         type="text"
-                        className="bg-transparent focus:outline-none lg:w-[320px] border-2 border-zinc-700"
+                        className="bg-transparent focus:outline-none w-40 lg:w-[420px] border-2 border-zinc-700"
                         placeholder="Digite aqui..."
                         value={taskText}
                         onChange={handleChange}
