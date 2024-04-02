@@ -1,30 +1,31 @@
-function useLocalStorage(key, initialValue) {
-    const [storedValue, setStoredValue] = useState(() => {
-      if (typeof window === "undefined") {
-        return initialValue;
-      }
+import { useEffect, useState } from "react"
+
+export function useLocalStorage(key, initialValue) {
+  const [storedValue, setStoredValue] = useState(initialValue)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
       try {
-        const item = localStorage.getItem(key);
-        return item ? JSON.parse(item) : initialValue;
+        const item = localStorage.getItem(key)
+        setStoredValue(item ? JSON.parse(item) : initialValue)
       } catch (error) {
-        console.warn(error);
-        return initialValue;
+        console.warn(error)
+        setStoredValue(initialValue)
       }
-    });
-  
-    const setValue = (value) => {
-      try {
-        const valueToStore =
-          typeof value === "function" ? value(storedValue) : value;
-        setStoredValue(valueToStore);
-        if (typeof window !== "undefined") {
-          window.localStorage.setItem(key, JSON.stringify(valueToStore));
-        }
-      } catch (error) {
-        console.warn(error);
+    }
+  }, [key, initialValue])
+
+  const setValue = (value) => {
+    try {
+      const ValueToStore = 
+      typeof value === "function" ? value(storedValue) : value
+      setStoredValue(ValueToStore)
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem(key, JSON.stringify(ValueToStore))
       }
-    };
-  
-    return [storedValue, setValue];
+    } catch (error) {
+      console.warn(error)
+    }
   }
-  
+  return [storedValue, setValue]
+}
