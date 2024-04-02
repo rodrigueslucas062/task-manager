@@ -56,7 +56,7 @@ const Navbar = () => {
                                 <Dialog.Close className="hover:bg-gray-300 p-2 rounded-full absolute top-2 right-2 text-zinc-800">
                                     <X className="size-5" />
                                 </Dialog.Close>
-                                <div className="flex items-center justify-center gap-3 p-4">
+                                <div className="flex items-center justify-center gap-3 px-4 py-1.5">
                                     <div className="rounded-lg mt-8 inline-block w-5/6 relative text-zinc-900">
                                         <div className="flex flex-col items-center justify-center space-y-2">
                                             <span className="font-semibold text-zinc-900 text-lg">Lista diárias</span>
