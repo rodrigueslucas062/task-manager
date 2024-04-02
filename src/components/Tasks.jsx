@@ -1,10 +1,14 @@
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronRight, ListTodo, Menu, MoreHorizontal, Trash2, X } from "lucide-react";
-import { useState } from "react";
 
-const TaskItem = () => {
-    const [taskText, setTaskText] = useState('')
-    const shadowStyle = { boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.75)" };
+const TaskItem = ({ shadowStyle, index }) => {
+    const [taskText, setTaskText] = useLocalStorage(`taskText_${index}`, '')
+
+    const handleChange = (e) => {
+        const text = e.target.value;
+        setTaskText(text);
+    };
 
     return (
         <div className="rounded-lg inline-block m-1 max-md:px-2 p-3 w-full lg:w-1/3 relative bg-white border-4 border-zinc-900 text-zinc-900" style={shadowStyle}>
@@ -18,6 +22,7 @@ const TaskItem = () => {
                         className="bg-transparent lg:w-[435px] focus:outline-none"
                         placeholder="Digite aqui..."
                         value={taskText}
+                        onChange={handleChange}
                     />
                 </div>
                 <div className="flex gap-2 lg:gap-4">
