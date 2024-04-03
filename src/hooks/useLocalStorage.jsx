@@ -4,6 +4,7 @@ export function useLocalStorage(key, initialValue) {
   const [storedValue, setStoredValue] = useState(initialValue);
 
   useEffect(() => {
+    const isClient = typeof window !== 'undefined';
     if (isClient) {
       try {
         const item = localStorage.getItem(key);
@@ -13,14 +14,14 @@ export function useLocalStorage(key, initialValue) {
         setStoredValue(initialValue);
       }
     }
-  }, [isClient, initialValue, key]);
+  }, [key, initialValue]);
 
   const setValue = (value) => {
     try {
       const ValueToStore =
         typeof value === "function" ? value(storedValue) : value;
       setStoredValue(ValueToStore);
-      if (isClient) { // Apenas executa o código do lado do cliente
+      if (typeof window !== "undefined") {
         localStorage.setItem(key, JSON.stringify(ValueToStore));
       }
     } catch (error) {
