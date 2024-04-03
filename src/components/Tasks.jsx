@@ -5,7 +5,8 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 const TaskItem = ({ shadowStyle, index }) => {
-    const [taskText, setTaskText] = useLocalStorage(`taskText_${index}`, '');
+    const [taskText, setTaskText] = useLocalStorage(`taskText_${index}`, '')
+    const [completed, setCompleted] = useState(false)
 
     const handleChange = (e) => {
         const text = e.target.value;
@@ -51,36 +52,16 @@ const TaskItem = ({ shadowStyle, index }) => {
     );
 };
 
-const Tasks = () => {
+const Tasks = ({ handleDone}) => {
     const shadowStyle = { boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.75)" };
-
-    const [tasks, setTasks] = useState([...Array(5)].map((_, index) => ({
-        id: index,
-        text: localStorage.getItem(`taskText_${index}`) || ''
-    })));
-
-    const handleRemove = (index) => {
-        localStorage.removeItem(`taskText_${index}`);
-        const updatedTasks = tasks.filter(task => task.id !== index);
-        setTasks(updatedTasks);
-        console.log(`taskText_${index}`);
-        toast('Tarefa removida', {
-            action: {
-                label: 'Desfazer',
-                onClick: () => console.log('Undo')
-            },
-            position: 'bottom-center',
-            duration: 2000,
-        });
-    }
 
     return (
         <Dialog.Root>
             <section className="min-h-screen">
                 <div className="flex flex-col items-center pt-48 space-y-4 max-lg:px-4">
                     <h1 className="bg-sky-700 py-1 px-3 rounded-3xl font-semibold">Tarefas gerais</h1>
-                    {tasks.map(task => (
-                        <TaskItem key={task.id} shadowStyle={shadowStyle} index={task.id} handleRemove={handleRemove} />
+                    {[...Array(5)].map((_, index) => (
+                        <TaskItem key={index} shadowStyle={shadowStyle} index={index} />
                     ))}
                 </div>
             </section>
@@ -104,7 +85,7 @@ const Tasks = () => {
                                             <ChevronRight />
                                         </button>
                                         <button className="flex items-center justify-between mb-2 px-3 rounded-md group hover:ring-2 hover:ring-red-600 py-2.5"
-                                            onClick={handleRemove}>
+                                           >
                                             <Trash2 className="w-6 h-6 group-hover:text-red-600" />
                                             <span className="flex-grow ml-4 group-hover:text-red-600">Remover todas as tarefas</span>
                                             <ChevronRight className="group-hover:text-red-600" />
