@@ -1,14 +1,28 @@
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronRight, ListTodo, Menu, MoreHorizontal, Trash2, X } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
 const TaskItem = ({ shadowStyle, index }) => {
     const [taskText, setTaskText] = useLocalStorage(`taskText_${index}`, '')
+    const [completed, setCompleted] = useState(false)
 
     const handleChange = (e) => {
         const text = e.target.value;
         setTaskText(text);
     };
+
+    const handleDone = () => {
+        localStorage.removeItem(`taskText_${index}`)
+        setCompleted(true)
+        setTaskText('')
+        console.log(`taskText_${index}`)
+        toast.success('Tarefa concluída!', {
+            position: 'bottom-center',
+            duration: 2000,
+        });
+    }
 
     return (
         <div className="rounded-lg inline-block m-1 max-md:px-2 p-3 w-full lg:w-1/3 relative bg-white border-4 border-zinc-900 text-zinc-900" style={shadowStyle}>
@@ -26,7 +40,8 @@ const TaskItem = ({ shadowStyle, index }) => {
                     />
                 </div>
                 <div className="flex gap-2 lg:gap-4">
-                    <span className={`${taskText ? 'bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl visible' : 'bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl invisible'}`}>Feito!</span>
+                    <span className={`${taskText ? 'bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl visible' : 'bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl invisible'}`}
+                        onClick={handleDone}>Feito!</span>
                     <Dialog.Trigger
                         className="lg:invisible group-hover:visible bg-white hover:bg-gray-200 p-2 rounded-full"
                         onClick={(e) => e.stopPropagation()}>
