@@ -1,7 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import Image from "next/image"
 import Perfil from '../../public/images/perfil.jpeg'
-import { ChevronRight, FlaskConical, Moon, MoreHorizontal, QrCode, Share2, Sun, Trash2, X } from "lucide-react"
+import { ChevronRight, FlaskConical, Moon, MoreHorizontal, Share2, Sun, Trash2, X } from "lucide-react"
 import { useEffect, useState } from "react"
 import { toast } from "sonner";
 
@@ -52,7 +52,7 @@ const Navbar = () => {
 
                     <Dialog.Portal>
                         <Dialog.DialogOverlay className="inset-0 fixed bg-black/70">
-                            <Dialog.DialogContent className="fixed z-10 inset-0 md:inset-auto max-md:top-2/3 lg:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[640px] w-full md:h-[60vh] bg-gray-200 max-md:rounded-t-3xl lg:rounded-3xl flex flex-col outline-none overflow-hidden">
+                            <Dialog.DialogContent className="fixed z-10 inset-0 md:inset-auto max-md:top-[55%] lg:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[640px] w-full md:h-[60vh] bg-gray-200 max-md:rounded-t-3xl lg:rounded-3xl flex flex-col outline-none overflow-hidden">
                                 <Dialog.Close className="hover:bg-gray-300 p-2 rounded-full absolute top-2 right-2 text-zinc-800">
                                     <X className="size-5" />
                                 </Dialog.Close>
