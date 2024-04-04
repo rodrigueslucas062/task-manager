@@ -5,7 +5,7 @@ import { ChevronRight, ListTodo, Menu, MoreHorizontal, Trash2, X } from "lucide-
 
 const placeholders = ["Estudar programação", "Tirar o lixo", "Limpar a casa", "Pagar as contas"]
 
-const generateRandomPlaceholder = () => {
+const GenerateRandomPlaceholder = () => {
     const randomIndex = Math.floor(Math.random() * placeholders.length)
     return placeholders[randomIndex]
 }
@@ -14,7 +14,7 @@ const TaskItem = ({ index }) => {
     const [taskText, setTaskText] = useLocalStorage(`taskText_${index}`, '')
     const shadowStyle = { boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.75)" };
     const isFirstInput = index === 0
-    const placeholder = generateRandomPlaceholder()
+    const placeholder = GenerateRandomPlaceholder()
 
     const handleChange = (e) => {
         const text = e.target.value;
