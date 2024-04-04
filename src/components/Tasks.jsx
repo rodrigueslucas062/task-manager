@@ -1,5 +1,5 @@
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { handleDone } from "@/utils/utils";
+import { handleDone, handleRemove } from "@/utils/utils";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronRight, ListTodo, Menu, MoreHorizontal, Trash2, X } from "lucide-react";
 
@@ -10,8 +10,9 @@ const generateRandomPlaceholder = () => {
     return placeholders[randomIndex]
 }
 
-const TaskItem = ({ shadowStyle, index }) => {
+const TaskItem = ({ index }) => {
     const [taskText, setTaskText] = useLocalStorage(`taskText_${index}`, '')
+    const shadowStyle = { boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.75)" };
     const isFirstInput = index === 0
     const placeholder = generateRandomPlaceholder()
 
@@ -36,8 +37,8 @@ const TaskItem = ({ shadowStyle, index }) => {
                     />
                 </div>
                 <div className="flex gap-2 lg:gap-4">
-                    <span className={`${taskText ? 'bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl visible' : 'bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl invisible'}`}
-                        onClick={() => handleDone(index, setTaskText)}>Feito!</span>
+                    <button className={`${taskText ? 'bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl visible' : 'bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl invisible'}`}
+                        onClick={() => handleDone(index, setTaskText)}>Feito!</button>
                     <Dialog.Trigger
                         className="lg:invisible group-hover:visible bg-white hover:bg-gray-200 p-2 rounded-full"
                         onClick={(e) => e.stopPropagation()}>
@@ -45,23 +46,6 @@ const TaskItem = ({ shadowStyle, index }) => {
                     </Dialog.Trigger>
                 </div>
             </div>
-        </div>
-    );
-};
-
-const Tasks = () => {
-    const shadowStyle = { boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.75)" };
-
-    return (
-        <Dialog.Root>
-            <section className="min-h-screen">
-                <div className="flex flex-col items-center pt-48 space-y-4 max-lg:px-4">
-                    <h1 className="bg-sky-700 py-1 px-3 rounded-3xl font-semibold">Tarefas gerais</h1>
-                    {[...Array(5)].map((_, index) => (
-                        <TaskItem key={index} shadowStyle={shadowStyle} index={index} />
-                    ))}
-                </div>
-            </section>
 
             <Dialog.Portal>
                 <Dialog.DialogOverlay className="inset-0 fixed bg-black/70">
@@ -81,9 +65,10 @@ const Tasks = () => {
                                             <span className="flex-grow ml-4">Salvar nas tarefas diárias</span>
                                             <ChevronRight />
                                         </button>
-                                        <button className="flex items-center justify-between mb-2 px-3 rounded-md group hover:ring-2 hover:ring-red-600 py-2.5">
+                                        <button className="flex items-center justify-between mb-2 px-3 rounded-md group hover:ring-2 hover:ring-red-600 py-2.5"
+                                            onClick={() => handleRemove(index, setTaskText)}>
                                             <Trash2 className="w-6 h-6 group-hover:text-red-600" />
-                                            <span className="flex-grow ml-4 group-hover:text-red-600">Remover todas as tarefas</span>
+                                            <span className="flex-grow ml-4 group-hover:text-red-600">Remover tarefa</span>
                                             <ChevronRight className="group-hover:text-red-600" />
                                         </button>
                                     </div>
@@ -93,6 +78,22 @@ const Tasks = () => {
                     </Dialog.DialogContent>
                 </Dialog.DialogOverlay>
             </Dialog.Portal>
+        </div>
+    );
+};
+
+const Tasks = () => {
+
+    return (
+        <Dialog.Root>
+            <section className="min-h-screen">
+                <div className="flex flex-col items-center pt-48 space-y-4 max-lg:px-4">
+                    <h1 className="bg-sky-700 text-white py-1 px-3 rounded-3xl font-semibold">Tarefas gerais</h1>
+                    {[...Array(5)].map((_, index) => (
+                        <TaskItem key={index} index={index} />
+                    ))}
+                </div>
+            </section>
         </Dialog.Root>
     );
 };
