@@ -1,15 +1,25 @@
-// const { useState } = require("react");
-
-// const placeholders = [
-//   "Estudar programação",
-//   "Tirar o lixo",
-//   "Limpar a casa",
-//   "Pagar as contas",
-// ];
-
-// export const generateRandomPlaceholder = () => {
-//   const randomIndex = Math.floor(Math.random() * placeholders.length);
-//   useState(() => {
-//     return placeholders[randomIndex];
-//   });
-// };
+export const placeholders = [
+    "Estudar programação",
+    "Tirar o lixo",
+    "Limpar a casa",
+    "Pagar as contas",
+    "Ler 10 páginas de um livro",
+    "Fazer atividades físicas",
+    "Cozinhar uma refeição saudável",
+    "Organizar a papelada",
+    "Assista a um tutorial de programação",
+    "Escrever em um diário por 10 minutos",
+    "Fazer uma pausa para meditar",
+    "Pesquisar e planejar uma viagem",
+    "Aprender uma nova habilidade",
+    "Fazer uma caminhada ao ar livre",
+    "Assistir a um filme",
+    "Iniciar uma série no Netflix",
+    "Maratonar um anime",
+    "Jogar um novo jogo de vídeo game",
+    "Experimentar um novo jogo de tabuleiro",
+    "Assistir a um documentário interessante",
+    "Explorar podcasts",
+    "Organizar uma sessão de RPG de mesa",
+    "Jogar uma partida de Magic",
+  ]
