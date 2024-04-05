@@ -1,5 +1,5 @@
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { placeholders } from "@/utils/placeholders";
+import { placeholders, questions } from "@/utils/placeholders";
 import { handleDone, handleRemove } from "@/utils/utils";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronRight, ListTodo, Menu, MoreHorizontal, Trash2, X } from "lucide-react";
@@ -38,8 +38,7 @@ const TaskItem = ({ index }) => {
                     <button className={`${taskText ? 'bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl visible' : 'bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl invisible'}`}
                         onClick={() => handleDone(index, setTaskText)}>Feito!</button>
                     <Dialog.Trigger
-                        className="lg:invisible group-hover:visible bg-white hover:bg-gray-200 p-2 rounded-full"
-                        onClick={(e) => e.stopPropagation()}>
+                        className="lg:invisible group-hover:visible bg-white hover:bg-gray-200 p-2 rounded-full">
                         <MoreHorizontal size={18} />
                     </Dialog.Trigger>
                 </div>
@@ -63,11 +62,11 @@ const TaskItem = ({ index }) => {
                                             <span className="flex-grow ml-4">Salvar nas tarefas diárias</span>
                                             <ChevronRight />
                                         </button>
-                                        <button className="flex items-center justify-between mb-2 px-3 rounded-md group ring-2 ring-red-600 py-2.5"
+                                        <button className="flex items-center justify-between mb-2 px-3 rounded-md group ring-2 ring-red-600 py-2.5 hover:bg-red-400"
                                             onClick={() => handleRemove(index, setTaskText)}>
-                                            <Trash2 className="w-6 h-6 text-red-600" />
-                                            <span className="flex-grow ml-4 text-red-600">Remover tarefa</span>
-                                            <ChevronRight className="text-red-600" />
+                                            <Trash2 className="w-6 h-6 text-red-600 group-hover:text-white" />
+                                            <span className="flex-grow ml-4 text-red-600 group-hover:text-white">Remover tarefa</span>
+                                            <ChevronRight className="text-red-600 group-hover:text-white" />
                                         </button>
                                     </div>
                                 </div>
@@ -81,12 +80,17 @@ const TaskItem = ({ index }) => {
 };
 
 const Tasks = () => {
+    const generateRandomQuestion = () => {
+        const randomIndex = Math.floor(Math.random() * questions.length)
+        return questions[randomIndex]
+    }
 
     return (
         <Dialog.Root>
             <section className="min-h-screen">
                 <div className="flex flex-col items-center pt-48 space-y-4 max-lg:px-4">
-                    <h1 className="bg-sky-700 text-white py-1 px-3 rounded-3xl font-semibold">Tarefas gerais</h1>
+                    <h1 className="bg-sky-700 text-white ring-1 ring-white py-1 px-3 rounded-3xl font-semibold">Tarefas gerais</h1>
+                    <span className="text-white text-xl font-semibold">{generateRandomQuestion()}</span>
                     {[...Array(5)].map((_, index) => (
                         <TaskItem key={index} index={index} />
                     ))}

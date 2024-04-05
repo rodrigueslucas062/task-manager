@@ -23,3 +23,26 @@ export const placeholders = [
     "Organizar uma sessão de RPG de mesa",
     "Jogar uma partida de Magic",
   ]
+
+  export const questions = [
+    "O que faremos hoje?",
+    "Já terminou aquela série?",
+    "Desinstalar League of Legends?",
+    "Pronto para jogar?",
+    "Hora do lanche?",
+    "Novidades?",
+    "Pensando em algo novo?",
+    "Que tal um filme?",
+    "Precisa de ajuda?",
+    "E aí?",
+    "Quais os planos?",
+    "Tudo bem?",
+    "Sugestões?",
+    "Escolheu um jogo?",
+    "Fez progresso?",
+    "Hora de descansar?",
+    "Como foi o dia?",
+    "Fazendo algo interessante?",
+    "O que acha?",
+  ]
+  
