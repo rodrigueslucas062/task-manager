@@ -1,25 +1,23 @@
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { placeholders } from "@/utils/placeholders";
 import { handleDone, handleRemove } from "@/utils/utils";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronRight, ListTodo, Menu, MoreHorizontal, Trash2, X } from "lucide-react";
-
-const placeholders = ["Estudar programação", "Tirar o lixo", "Limpar a casa", "Pagar as contas"]
-
-const generateRandomPlaceholder = () => {
-    const randomIndex = Math.floor(Math.random() * placeholders.length)
-    return placeholders[randomIndex]
-}
 
 const TaskItem = ({ index }) => {
     const [taskText, setTaskText] = useLocalStorage(`taskText_${index}`, '')
     const shadowStyle = { boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.75)" };
     const isFirstInput = index === 0
-    const placeholder = generateRandomPlaceholder()
 
     const handleChange = (e) => {
         const text = e.target.value;
         setTaskText(text);
     };
+
+    const generateRandomPlaceholder = () => {
+        const randomIndex = Math.floor(Math.random() * placeholders.length)
+        return placeholders[randomIndex]
+    }
 
     return (
         <div className="rounded-lg inline-block m-1 max-md:px-2 p-3 w-full lg:w-1/3 relative bg-white border-4 border-zinc-900 text-zinc-900" style={shadowStyle}>
@@ -31,7 +29,7 @@ const TaskItem = ({ index }) => {
                     <input
                         type="text"
                         className="bg-transparent focus:outline-none w-40 lg:w-[420px]"
-                        placeholder={isFirstInput ? placeholder : ""}
+                        placeholder={isFirstInput ? generateRandomPlaceholder() : ""}
                         value={taskText}
                         onChange={handleChange}
                     />
