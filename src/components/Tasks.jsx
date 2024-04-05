@@ -21,21 +21,19 @@ const TaskItem = ({ index }) => {
 
     return (
         <div className="rounded-lg inline-block m-1 max-md:px-2 p-3 w-full lg:w-1/3 relative bg-white border-4 border-zinc-900 text-zinc-900" style={shadowStyle}>
-            <div className="flex items-center justify-between group">
-                <div className="flex gap-2 lg:gap-4">
-                    <div className="group-hover:visible cursor-grab bg-white hover:bg-gray-200 p-2 rounded-full">
-                        <Menu size={18} />
-                    </div>
-                    <input
-                        type="text"
-                        className="bg-transparent focus:outline-none w-40 lg:w-[420px]"
+            <div className="flex items-center gap-2 lg:gap-4 justify-between group">
+                <div className="group-hover:visible cursor-grab bg-white hover:bg-gray-200 p-2 rounded-full">
+                    <Menu size={18} />
+                </div>
+                <div className="w-full">
+                    <input className="bg-transparent focus:outline-none w-full text-wrap text-ellipsis" type="text"
                         placeholder={isFirstInput ? generateRandomPlaceholder() : ""}
                         value={taskText}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="flex gap-2 lg:gap-4">
-                    <button className={`${taskText ? 'bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl visible' : 'bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl invisible'}`}
+                    <button className={`${taskText ? 'bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl' : 'hidden'}`}
                         onClick={() => handleDone(index, setTaskText)}>Feito!</button>
                     <Dialog.Trigger
                         className="lg:invisible group-hover:visible bg-white hover:bg-gray-200 p-2 rounded-full">
