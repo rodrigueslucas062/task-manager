@@ -1,5 +1,10 @@
 import { toast } from "sonner";
 
+export const handleChange = (index, e, setTaskText) => {
+    const text = e.target.value
+    setTaskText(text)
+}
+
 export const handleDone = (index, setTaskText) => {
     console.log(index)
     localStorage.removeItem(`taskText_${index}`);
