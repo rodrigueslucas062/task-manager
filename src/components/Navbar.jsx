@@ -1,9 +1,10 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import Image from "next/image"
 import Perfil from '../../public/images/perfil.jpeg'
-import { ChevronRight, FlaskConical, Moon, MoreHorizontal, Share2, Sun, Trash2, X } from "lucide-react"
+import { ChevronRight, FlaskConical, Notebook, Moon, MoreHorizontal, Share2, Sun, Trash2, X } from "lucide-react"
 import { useState } from "react"
 import { toast } from "sonner";
+import Link from 'next/link';
 
 const Navbar = () => {
     const [copied, setCopied] = useState(false)
@@ -49,12 +50,17 @@ const Navbar = () => {
                                                     <span>Compartilhar esse projeto</span>
                                                     <ChevronRight />
                                                 </button>
-                                                <button className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5"
+                                                <Link href="/notecards" className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5">
+                                                    <Notebook />
+                                                    <span>Bloco de anotações</span>
+                                                    <ChevronRight />
+                                                </Link>
+                                                {/* <button className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5"
                                                     onClick={handleToggleTheme} >
                                                     {isSun ? <Sun /> : <Moon />}
                                                     <span>Mudar tema</span>
                                                     <ChevronRight />
-                                                </button>
+                                                </button> */}
                                                 <div className="fixed flex flex-col space-y-2 bottom-0">
                                                     <button className="flex items-center justify-between mb-2 px-3 rounded-md group hover:ring-2 hover:ring-red-600 py-2.5">
                                                         <Trash2 className="w-6 h-6 group-hover:text-red-600" />
