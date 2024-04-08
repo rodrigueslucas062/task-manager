@@ -1,6 +1,7 @@
-import NewNoteCards from "@/components/NoteCards/NewNoteCard";
-import NoteCards from "@/components/NoteCards/NoteCards";
+
 import { useEffect, useState } from "react";
+import NewNoteCards from "./NewNoteCards";
+import NoteCards from "./NoteCards";
 
 const Main = () => {
     const [search, setSearch] = useState('')
