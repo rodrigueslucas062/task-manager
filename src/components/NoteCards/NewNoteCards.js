@@ -7,6 +7,7 @@ const NewNoteCards = ({ onNoteCreated }) => {
   const [shouldShowOnBoarding, setShouldShowOnBoarding] = useState(true);
   const [content, setContent] = useState("");
   const [isRecording, setIsRecording] = useState(false);
+  const shadowStyle = { boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.75)" };
 
   function handleStartEditor() {
     setShouldShowOnBoarding(false);
@@ -69,20 +70,21 @@ const NewNoteCards = ({ onNoteCreated }) => {
 
   return (
     <Dialog.Root>
-      <Dialog.Trigger className="flex flex-col rounded-md text-left bg-slate-700 p-5 space-y-3 overflow-hidden relative hover:ring-2 hover:ring-slate-600">
-        <span className="text-sm font-medium text-slate-200">
-          Adicionar nota
-        </span>
-        <p className="text-sm leading-6 text-slate-400 ">
+      <Dialog.Trigger
+        className="rounded-lg inline-block m-1 max-md:px-2 p-3 relative bg-white border-4 border-zinc-900 text-zinc-900"
+        style={shadowStyle}
+      >
+        <span className="font-semibold text-zinc-900">Adicionar nota</span>
+        <p className="text-sm font-semibold leading-6 text-zinc-500 ">
           Grave uma nota em áudio que será convertida para texto
           automaticamente.
         </p>
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <Dialog.DialogOverlay className="inset-0 fixed bg-black/90">
+        <Dialog.DialogOverlay className="inset-0 fixed bg-black/70">
           <Dialog.DialogContent className="fixed z-10 inset-0 md:inset-auto max-md:top-[70%] lg:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[640px] w-full md:h-[60vh] bg-gray-200 max-md:rounded-t-3xl lg:rounded-3xl flex flex-col outline-none overflow-hidden">
-            <Dialog.Close className="absolute right-0 top-0 bg-slate-800 p-1.5 text-slate-400 hover:text-slate-100">
+            <Dialog.Close className="hover:bg-gray-300 p-2 rounded-full absolute top-2 right-2 text-zinc-900">
               <X className="size-5" />
             </Dialog.Close>
 
@@ -98,7 +100,7 @@ const NewNoteCards = ({ onNoteCreated }) => {
                     <button
                       type="button"
                       onClick={handleStartRecording}
-                      className="font-medium text-lime-400 hover:underline"
+                      className="font-semibold text-sky-600 hover:underline"
                     >
                       gravando uma nota em áudio
                     </button>{" "}
@@ -106,7 +108,7 @@ const NewNoteCards = ({ onNoteCreated }) => {
                     <button
                       type="button"
                       onClick={handleStartEditor}
-                      className="font-medium text-lime-400 hover:underline"
+                      className="font-semibold text-sky-600 hover:underline"
                     >
                       utilize apenas texto
                     </button>{" "}
@@ -126,7 +128,7 @@ const NewNoteCards = ({ onNoteCreated }) => {
                 <button
                   type="button"
                   onClick={handleStopRecording}
-                  className="w-full flex items-center justify-center gap-2 bg-slate-900 py-4 text-center text-sm text-slate-300 outline-none font-medium hover:text-slate-100"
+                  className="w-full flex items-center justify-center gap-2 bg-slate-900 py-4 text-center text-slate-300 outline-none font-medium hover:text-slate-100"
                 >
                   <div className="size-3 rounded-full bg-red-500 animate-pulse" />
                   Gravando... (clique para parar)
@@ -135,7 +137,7 @@ const NewNoteCards = ({ onNoteCreated }) => {
                 <button
                   type="button"
                   onClick={hanleSaveNote}
-                  className="w-full bg-lime-400 py-4 text-center text-sm text-lime-950 outline-none font-medium hover:bg-lime-500"
+                  className="w-full bg-lime-400 py-4 text-center text-zinc-900 outline-none font-semibold hover:bg-lime-500"
                 >
                   Salvar nota?
                 </button>
