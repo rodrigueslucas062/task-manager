@@ -1,9 +1,9 @@
-import Main from "@/components/NoteCards/Notepad";
+import NotepadCards from "@/components/NoteCards/Notepad";
 
 export default function NotePads() {
   return (
     <>
-      <Main />
+      <NotepadCards />
     </>
   );
 }

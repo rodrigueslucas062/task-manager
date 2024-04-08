@@ -50,7 +50,7 @@ const Navbar = () => {
                                                     <span>Compartilhar esse projeto</span>
                                                     <ChevronRight />
                                                 </button>
-                                                <Link href="/notecards" className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5">
+                                                <Link href="/notepad" className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5">
                                                     <Notebook />
                                                     <span>Bloco de anotações</span>
                                                     <ChevronRight />

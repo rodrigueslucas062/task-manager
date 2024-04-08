@@ -30,7 +30,7 @@ const NoteCards = (NoteCardProps, handleDeleteNote) => {
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.DialogOverlay className="inset-0 fixed bg-black/90">
-          <DialogContent className="fixed z-10 inset-0 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[640px] w-full md:h-[60vh] bg-slate-700 md:rounded-md flex flex-col outline-none overflow-hidden">
+        <Dialog.DialogContent className="fixed z-10 inset-0 md:inset-auto max-md:top-[70%] lg:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[640px] w-full md:h-[60vh] bg-gray-200 max-md:rounded-t-3xl lg:rounded-3xl flex flex-col outline-none overflow-hidden">
             <Dialog.Close className="absolute right-0 top-0 bg-slate-800 p-1.5 text-slate-400 hover:text-slate-100">
                 <X className="size-5"/>
             </Dialog.Close>
@@ -48,7 +48,8 @@ const NoteCards = (NoteCardProps, handleDeleteNote) => {
                 apagar essa nota?
               </span>
             </button>
-          </DialogContent>
+          </Dialog.DialogContent>
+          {/* </DialogDialogContent> */}
         </Dialog.DialogOverlay>
       </Dialog.Portal>
     </Dialog.Root>

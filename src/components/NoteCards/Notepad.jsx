@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import NewNoteCards from "./NewNoteCards";
 import NoteCards from "./NoteCards";
 
-const Main = () => {
+const NotepadCards = () => {
     const [search, setSearch] = useState('')
     const [notes, setNotes] = useState([])
 
@@ -44,7 +44,7 @@ const Main = () => {
         : notes
 
     return (
-        <div className="mx-auto max-w-6xl my-12 space-y-6 px-5">
+        <div className="mx-auto max-w-6xl my-12 space-y-6 px-5 pt-16">
             {/* <Image src={Logo} width={100} height={100} alt="Logo image"/> */}
 
             <form className="w-full">
@@ -67,4 +67,4 @@ const Main = () => {
     );
 };
 
-export default Main;
+export default NotepadCards;
