@@ -1,29 +1,84 @@
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { placeholders, questions } from "@/utils/placeholders";
-import { handleDone, handleRemove } from "@/utils/utils";
+import { useState, useEffect } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronRight, ListTodo, Menu, MoreHorizontal, Trash2, X } from "lucide-react";
-import { useEffect, useState } from "react";
 
-const TaskItem = ({ index }) => {
-    const [taskText, setTaskText] = useLocalStorage(`taskText_${index}`, '')
-    const shadowStyle = { boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.75)" };
-    const isFirstInput = index === 0
-    const [randomPlaceholder, setRandomPlaceholder] = useState('');
+const Tasks = () => {
+    const [taskData, setTaskData] = useLocalStorage("taskData", []);
 
-    const handleChange = (e) => {
-        const text = e.target.value;
-        setTaskText(text);
+    const handleInputChange = (index, value) => {
+        const updatedTaskData = [...taskData];
+        updatedTaskData[index] = value;
+        setTaskData(updatedTaskData);
+    };
+
+    const handleDone = (index) => {
+        const updatedTaskData = [...taskData];
+        updatedTaskData[index] = { ...updatedTaskData[index], completed: true };
+        setTaskData(updatedTaskData);
+    };
+
+    const handleRemove = (index) => {
+        const updatedTaskData = [...taskData];
+        updatedTaskData.splice(index, 1);
+        setTaskData(updatedTaskData);
     };
 
     useEffect(() => {
-        const generateRandomPlaceholder = () => {
-            const randomIndex = Math.floor(Math.random() * placeholders.length)
-            return placeholders[randomIndex]
+        // Initialize with random placeholders if taskData is empty
+        if (taskData.length === 0) {
+            const initialData = Array.from({ length: 5 }, () => ({
+                text: '',
+                completed: false,
+            }));
+            setTaskData(initialData);
         }
+    }, []);
+
+    const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
+
+    return (
+        <Dialog.Root>
+            <section className="min-h-screen">
+                <div className="flex flex-col items-center pt-48 space-y-4 max-lg:px-4">
+                    <h1 className="bg-sky-700 text-white ring-1 ring-white py-1 px-3 rounded-3xl font-semibold">Tarefas gerais</h1>
+                    <span className="text-white text-xl font-semibold">{randomQuestion}</span>
+                    {taskData.map((task, index) => (
+                        <TaskItem
+                            key={index}
+                            index={index}
+                            taskText={task.text}
+                            completed={task.completed}
+                            onChange={(value) => handleInputChange(index, value)}
+                            onDone={() => handleDone(index)}
+                            onRemove={() => handleRemove(index)}
+                        />
+                    ))}
+                </div>
+            </section>
+        </Dialog.Root>
+    );
+};
+
+const TaskItem = ({ index, taskText, completed, onChange, onDone, onRemove }) => {
+    const shadowStyle = { boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.75)" };
+    const isFirstInput = index === 0;
+    const [randomPlaceholder, setRandomPlaceholder] = useState('');
+
+    useEffect(() => {
+        const generateRandomPlaceholder = () => {
+            const randomIndex = Math.floor(Math.random() * placeholders.length);
+            return placeholders[randomIndex];
+        };
 
         setRandomPlaceholder(generateRandomPlaceholder());
     }, []);
+
+    const handleChange = (e) => {
+        const value = e.target.value;
+        onChange(value);
+    };
 
     return (
         <div className="rounded-lg inline-block m-1 max-md:px-2 p-3 w-full lg:w-1/3 relative bg-white border-4 border-zinc-900 text-zinc-900" style={shadowStyle}>
@@ -32,10 +87,13 @@ const TaskItem = ({ index }) => {
                     <Menu size={18} />
                 </div>
                 <div className="w-full">
-                    <input className="bg-transparent focus:outline-none w-full text-wrap text-ellipsis" type="text"
+                    <input
+                        className="bg-transparent focus:outline-none w-full text-wrap text-ellipsis"
+                        type="text"
                         placeholder={isFirstInput ? randomPlaceholder : ""}
                         value={taskText}
                         onChange={handleChange}
+                        disabled={completed}
                     />
                 </div>
                 <div className="flex gap-2 lg:gap-4">
@@ -67,7 +125,7 @@ const TaskItem = ({ index }) => {
                                             <ChevronRight />
                                         </button>
                                         <button className="flex items-center justify-between mb-2 px-3 rounded-md group ring-2 ring-red-600 py-2.5 hover:bg-red-400"
-                                            onClick={() => handleRemove(index, setTaskText)}>
+                                            onClick={(onRemove)}>
                                             <Trash2 className="w-6 h-6 text-red-600 group-hover:text-white" />
                                             <span className="flex-grow ml-4 text-red-600 group-hover:text-white">Remover tarefa</span>
                                             <ChevronRight className="text-red-600 group-hover:text-white" />
@@ -80,33 +138,6 @@ const TaskItem = ({ index }) => {
                 </Dialog.DialogOverlay>
             </Dialog.Portal>
         </div>
-    );
-};
-
-const Tasks = () => {
-    const [randomQuestion, setRandomQuestion] = useState('');
-
-    useEffect(() => {
-        const generateRandomQuestion = () => {
-            const randomIndex = Math.floor(Math.random() * questions.length)
-            return questions[randomIndex]
-        }
-
-        setRandomQuestion(generateRandomQuestion());
-    }, []);
-
-    return (
-        <Dialog.Root>
-            <section className="min-h-screen">
-                <div className="flex flex-col items-center pt-48 space-y-4 max-lg:px-4">
-                    <h1 className="bg-sky-700 text-white ring-1 ring-white py-1 px-3 rounded-3xl font-semibold">Tarefas gerais</h1>
-                    <span className="text-white text-xl font-semibold">{randomQuestion}</span>
-                    {[...Array(5)].map((_, index) => (
-                        <TaskItem key={index} index={index} />
-                    ))}
-                </div>
-            </section>
-        </Dialog.Root>
     );
 };
 
