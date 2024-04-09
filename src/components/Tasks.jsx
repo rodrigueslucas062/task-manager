@@ -3,21 +3,27 @@ import { placeholders, questions } from "@/utils/placeholders";
 import { handleDone, handleRemove } from "@/utils/utils";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronRight, ListTodo, Menu, MoreHorizontal, Trash2, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const TaskItem = ({ index }) => {
     const [taskText, setTaskText] = useLocalStorage(`taskText_${index}`, '')
     const shadowStyle = { boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.75)" };
     const isFirstInput = index === 0
+    const [randomPlaceholder, setRandomPlaceholder] = useState('');
 
     const handleChange = (e) => {
         const text = e.target.value;
         setTaskText(text);
     };
 
-    const generateRandomPlaceholder = () => {
-        const randomIndex = Math.floor(Math.random() * placeholders.length)
-        return placeholders[randomIndex]
-    }
+    useEffect(() => {
+        const generateRandomPlaceholder = () => {
+            const randomIndex = Math.floor(Math.random() * placeholders.length)
+            return placeholders[randomIndex]
+        }
+
+        setRandomPlaceholder(generateRandomPlaceholder());
+    }, []);
 
     return (
         <div className="rounded-lg inline-block m-1 max-md:px-2 p-3 w-full lg:w-1/3 relative bg-white border-4 border-zinc-900 text-zinc-900" style={shadowStyle}>
@@ -27,7 +33,7 @@ const TaskItem = ({ index }) => {
                 </div>
                 <div className="w-full">
                     <input className="bg-transparent focus:outline-none w-full text-wrap text-ellipsis" type="text"
-                        placeholder={isFirstInput ? generateRandomPlaceholder() : ""}
+                        placeholder={isFirstInput ? randomPlaceholder : ""}
                         value={taskText}
                         onChange={handleChange}
                     />
@@ -78,17 +84,23 @@ const TaskItem = ({ index }) => {
 };
 
 const Tasks = () => {
-    const generateRandomQuestion = () => {
-        const randomIndex = Math.floor(Math.random() * questions.length)
-        return questions[randomIndex]
-    }
+    const [randomQuestion, setRandomQuestion] = useState('');
+
+    useEffect(() => {
+        const generateRandomQuestion = () => {
+            const randomIndex = Math.floor(Math.random() * questions.length)
+            return questions[randomIndex]
+        }
+
+        setRandomQuestion(generateRandomQuestion());
+    }, []);
 
     return (
         <Dialog.Root>
             <section className="min-h-screen">
                 <div className="flex flex-col items-center pt-48 space-y-4 max-lg:px-4">
                     <h1 className="bg-sky-700 text-white ring-1 ring-white py-1 px-3 rounded-3xl font-semibold">Tarefas gerais</h1>
-                    <span className="text-white text-xl font-semibold">{generateRandomQuestion()}</span>
+                    <span className="text-white text-xl font-semibold">{randomQuestion}</span>
                     {[...Array(5)].map((_, index) => (
                         <TaskItem key={index} index={index} />
                     ))}
