@@ -59,7 +59,7 @@ const TaskItem = ({ index }) => {
                                 <div className="rounded-lg mt-8 inline-block w-5/6 relative text-zinc-900">
                                     <div className="flex flex-col items-center justify-center space-y-2">
                                         <span className="font-semibold text-zinc-900 text-lg">
-                                            {index}
+                                            Mais opções
                                         </span>
                                         <div className="flex flex-col mt-6 space-y-4 font-semibold">
                                             <button className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5">
