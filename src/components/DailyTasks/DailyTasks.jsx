@@ -104,7 +104,7 @@ const DailyTasks = () => {
                     <h1 className="bg-sky-700 text-white ring-1 ring-white py-1 px-3 rounded-3xl font-semibold">Tarefas gerais</h1>
                     <span className="text-white text-xl font-semibold">{randomQuestion}</span>
                     {[...Array(5)].map((_, index) => (
-                        <TaskItem key={index} index={index} />
+                        <TaskItemDaily key={index} index={index} />
                     ))}
                 </div>
             </section>
