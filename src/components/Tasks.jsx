@@ -100,7 +100,7 @@ const Tasks = () => {
     return (
         <Dialog.Root>
             <section className="min-h-screen">
-                <div className="flex flex-col items-center pt-48 space-y-4 max-lg:px-4">
+                <div className="flex flex-col items-center pt-28 max-md:pt-40 space-y-4 max-lg:px-4">
                     <h1 className="bg-sky-700 text-white ring-1 ring-white py-1 px-3 rounded-3xl font-semibold">Tarefas gerais</h1>
                     <span className="text-white text-xl font-semibold">{randomQuestion}</span>
                     {[...Array(5)].map((_, index) => (
