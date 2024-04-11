@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import SEO from "@/components/SEO";
 import "@/styles/globals.css";
 import { useEffect, useRef } from "react";
 import { Toaster } from "sonner";
@@ -32,6 +33,7 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
+      <SEO />
       <Toaster />
       <Navbar />
       <Component {...pageProps} />
