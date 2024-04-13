@@ -27,8 +27,8 @@ const Navbar = () => {
     }
 
     const isNotePadRoute = router.pathname === '/notepad';
-    const notebookText = isNotePadRoute ? 'Anotações' : 'Tarefas diarias';
-    const notepadText = isNotePadRoute ? 'Tarefas diarias' : 'Anotações';
+    const notebookText = isNotePadRoute ? 'Anotações' : 'Tarefas gerais';
+    const notepadText = isNotePadRoute ? 'Tarefas gerais' : 'Anotações';
     const notebookLink = isNotePadRoute ? '/' : '/notepad';
     const notebookIcon = isNotePadRoute ? <ListTodo /> : <Notebook />;
 
@@ -55,7 +55,7 @@ const Navbar = () => {
                                             <div className="flex flex-col mt-4 lg:mt-6 space-y-4 lg:space-y-1.5 font-semibold">
                                                 <button className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5" onClick={handleCopyLink}>
                                                     <Share2 />
-                                                    <span>Compartilhar esse projeto</span>
+                                                    <span>Compartilhar lista</span>
                                                     <ChevronRight />
                                                 </button>
                                                 <Link href={notebookLink} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5">
@@ -66,7 +66,7 @@ const Navbar = () => {
                                                 <Link href={'/dailytasks'}  className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5"
                                                     onClick={handleToggleTheme} >
                                                     <Sun />
-                                                    <span>Diárias</span>
+                                                    <span>Tarefas diárias</span>
                                                     <ChevronRight />
                                                 </Link>
                                                 <button className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5"
