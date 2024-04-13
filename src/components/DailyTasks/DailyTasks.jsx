@@ -6,15 +6,20 @@ import { ChevronRight, ListTodo, Menu, MoreHorizontal, Trash2, X } from "lucide-
 import { useEffect, useState } from "react";
 
 const TaskItemDaily = ({ index }) => {
-    const [taskText, setTaskText] = useLocalStorage(`taskText_${index}`, '')
+    const [taskDailyText, setTaskDailyText] = useLocalStorage(`taskDailyText_${index}`, '')
+    const [isVisible, setIsVisible] = useState(true)
     const shadowStyle = { boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.75)" };
     const isFirstInput = index === 0
     const [randomPlaceholder, setRandomPlaceholder] = useState('');
 
     const handleChange = (e) => {
         const text = e.target.value;
-        setTaskText(text);
+        setTaskDailyText(text)
     };
+
+    const handleDoneDaily = (e) => {
+        setIsVisible(false)
+    }
 
     useEffect(() => {
         const generateRandomPlaceholder = () => {
@@ -23,11 +28,11 @@ const TaskItemDaily = ({ index }) => {
         }
 
         setRandomPlaceholder(generateRandomPlaceholder());
-    }, [taskText]);
+    }, [taskDailyText])
 
     return (
         <Dialog.Root index={index}>
-            <div className="rounded-lg inline-block m-1 max-md:px-2 p-3 w-full lg:w-1/3 relative bg-white border-4 border-zinc-900 text-zinc-900" style={shadowStyle}>
+            <div className={`${isVisible ? "rounded-lg inline-block m-1 max-md:px-2 p-3 w-full lg:w-1/3 relative bg-white border-4 border-zinc-900 text-zinc-900" : 'hidden'} `} style={shadowStyle}>
                 <div className="flex items-center gap-2 lg:gap-4 justify-between group">
                     <div className="group-hover:visible cursor-grab bg-white hover:bg-gray-200 p-2 rounded-full">
                         <Menu size={18} />
@@ -35,13 +40,13 @@ const TaskItemDaily = ({ index }) => {
                     <div className="w-full">
                         <input className="bg-transparent focus:outline-none w-full text-wrap text-ellipsis" type="text"
                             placeholder={isFirstInput ? randomPlaceholder : ""}
-                            value={taskText}
+                            value={taskDailyText}
                             onChange={handleChange}
                         />
                     </div>
                     <div className="flex gap-2 lg:gap-4">
-                        <button className={`${taskText ? 'bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl' : 'hidden'}`}
-                            onClick={() => handleDone(index, setTaskText)}>Feito!</button>
+                        <button className={`${taskDailyText ? 'bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl' : 'hidden'}`}
+                            onClick={() => handleDoneDaily(index)}>Feito!</button>
                         <Dialog.Trigger
                             className="lg:invisible group-hover:visible bg-white hover:bg-gray-200 p-2 rounded-full">
                             <MoreHorizontal size={18} />
@@ -68,7 +73,7 @@ const TaskItemDaily = ({ index }) => {
                                                 <ChevronRight />
                                             </button>
                                             <button className="flex items-center justify-between mb-2 px-3 rounded-md group ring-2 ring-red-600 py-2.5 hover:bg-red-400"
-                                                onClick={() => handleRemove(index, setTaskText)}>
+                                                onClick={() => handleRemove(index, setTaskDailyText)}>
                                                 <Trash2 className="w-6 h-6 text-red-600 group-hover:text-white" />
                                                 <span className="flex-grow ml-4 text-red-600 group-hover:text-white">Remover tarefa</span>
                                                 <ChevronRight className="text-red-600 group-hover:text-white" />
@@ -102,6 +107,7 @@ const DailyTasks = () => {
             <section className="min-h-screen">
                 <div className="flex flex-col items-center pt-40 space-y-4 max-lg:px-4">
                     <h1 className="bg-sky-700 text-white ring-1 ring-white py-1 px-3 rounded-3xl font-semibold">Tarefas diárias</h1>
+                    <span className="text-white text-sm font-semibold">Todas as tarefas retornam apos 24h 🫡</span>
                     <span className="text-white text-xl font-semibold">{randomQuestion}</span>
                     {[...Array(5)].map((_, index) => (
                         <TaskItemDaily key={index} index={index} />
