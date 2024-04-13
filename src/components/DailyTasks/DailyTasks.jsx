@@ -1,9 +1,32 @@
-import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { placeholders, questions } from "@/utils/placeholders";
 import { handleDone, handleRemove } from "@/utils/utils";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronRight, ListTodo, Menu, MoreHorizontal, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
+
+const useLocalStorage = (key, initialValue) => {
+    const [storedValue, setStoredValue] = useState(() => {
+        try {
+            const item = window.localStorage.getItem(key);
+            return item ? JSON.parse(item) : initialValue;
+        } catch (error) {
+            console.log(error);
+            return initialValue;
+        }
+    });
+
+    const setValue = value => {
+        try {
+            const valueToStore = value instanceof Function ? value(storedValue) : value;
+            setStoredValue(valueToStore);
+            window.localStorage.setItem(key, JSON.stringify(valueToStore));
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    return [storedValue, setValue];
+};
 
 const TaskItemDaily = ({ index }) => {
     const [taskDailyText, setTaskDailyText] = useLocalStorage(`taskDailyText_${index}`, '')
@@ -19,6 +42,9 @@ const TaskItemDaily = ({ index }) => {
 
     const handleDoneDaily = (e) => {
         setIsVisible(false)
+        const completedTasks = JSON.parse(localStorage.getItem('DailyTasks')) || [];
+        completedTasks.push(taskDailyText);
+        localStorage.setItem('DailyTasks', JSON.stringify(completedTasks));
     }
 
     useEffect(() => {
@@ -29,6 +55,13 @@ const TaskItemDaily = ({ index }) => {
 
         setRandomPlaceholder(generateRandomPlaceholder());
     }, [taskDailyText])
+
+    useEffect(() => {
+        const completedTasks = JSON.parse(localStorage.getItem('DailyTasks')) || [];
+        if (completedTasks.includes(taskDailyText)) {
+            setIsVisible(false);
+        }
+    }, []);
 
     return (
         <Dialog.Root index={index}>
@@ -46,7 +79,7 @@ const TaskItemDaily = ({ index }) => {
                     </div>
                     <div className="flex gap-2 lg:gap-4">
                         <button className={`${taskDailyText ? 'bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl' : 'hidden'}`}
-                            onClick={() => handleDoneDaily(index)}>Feito!</button>
+                            onClick={handleDoneDaily}>Feito!</button>
                         <Dialog.Trigger
                             className="lg:invisible group-hover:visible bg-white hover:bg-gray-200 p-2 rounded-full">
                             <MoreHorizontal size={18} />
