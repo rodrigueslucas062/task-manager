@@ -63,18 +63,18 @@ const Navbar = () => {
                                                     <span>{notepadText}</span>
                                                     <ChevronRight />
                                                 </Link>
-                                                <button className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5"
+                                                <Link href={'/dailytasks'}  className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5"
                                                     onClick={handleToggleTheme} >
                                                     <Sun />
                                                     <span>Diárias</span>
                                                     <ChevronRight />
-                                                </button>
-                                                <Link href={'/DailyTasks'} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5"
+                                                </Link>
+                                                <button className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5"
                                                     onClick={handleToggleTheme} >
                                                     <Wallpaper />
                                                     <span>Mudar tema</span>
                                                     <ChevronRight />
-                                                </Link>
+                                                </button>
                                                 <div className="fixed flex flex-col space-y-2 bottom-0">
                                                     <button className="flex items-center justify-between mb-2 px-3 rounded-md group hover:ring-2 hover:ring-red-600 py-2.5">
                                                         <Trash2 className="w-6 h-6 group-hover:text-red-600" />
