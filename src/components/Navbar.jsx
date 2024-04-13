@@ -27,7 +27,7 @@ const Navbar = () => {
     }
 
     const isNotePadRoute = router.pathname === '/notepad';
-    const notebookText = isNotePadRoute ? 'Anotações' : 'Tarefas gerais';
+    const notebookText = isNotePadRoute ? 'Anotações' : 'Tarefas Gerais';
     const notepadText = isNotePadRoute ? 'Tarefas gerais' : 'Anotações';
     const notebookLink = isNotePadRoute ? '/' : '/notepad';
     const notebookIcon = isNotePadRoute ? <ListTodo /> : <Notebook />;
@@ -36,7 +36,7 @@ const Navbar = () => {
         <nav className="fixed flex top-8 w-full justify-center px-2 z-10">
             <div className="flex w-full lg:w-2/5 border-2 border-zinc-900 bg-gray-50/70 items-center justify-between px-4 py-2 rounded-full backdrop-blur-sm transition-visible duration-500 ease-in-out">
                 <Image className="rounded-xl border-2 border-zinc-900" src={Perfil} alt="Lucas Rodrigues" width={50} height={50} />
-                <h5 className="mb-1 text-xl font-semibold text-zinc-800">{notebookText}</h5>
+                <h5 className="mb-1 text-xl font-semibold text-zinc-800">{router.pathname === '/dailytasks' ? 'Tarefas Diárias' : notebookText}</h5>
                 <Dialog.Root>
                     <Dialog.Trigger className="visible bg-zinc-200 hover:bg-zinc-400 text-zinc-900 hover:text-zinc-200 p-2 rounded-full">
                         <MoreHorizontal size={18} />
@@ -51,7 +51,7 @@ const Navbar = () => {
                                 <div className="flex flex-col items-center justify-center gap-3 px-2 lg:px-4 pt-1.5">
                                     <div className="rounded-lg mt-4 lg:mt-8 justify-center inline-block w-3/4 lg:w-3/5 relative text-zinc-900">
                                         <div className='flex justify-center'>
-                                            <span className="font-semibold text-zinc-900 text-lg">{notebookText}</span>
+                                            <span className="font-semibold text-zinc-900 text-lg">{router.pathname === '/dailytasks' ? 'Tarefas Diárias' : notebookText}</span>
                                         </div>
                                         <div className="flex flex-col mt- space-y-4 lg:space-y-1.5 font-semibold">
                                             <button className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-3" onClick={handleCopyLink}>
@@ -64,10 +64,9 @@ const Navbar = () => {
                                                 <span>{notepadText}</span>
                                                 <ChevronRight />
                                             </Link>
-                                            <Link href={'/dailytasks'} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5"
-                                                onClick={handleToggleTheme} >
+                                            <Link href={router.pathname === '/dailytasks' ? '/' : '/dailytasks'} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5" onClick={handleToggleTheme}>
                                                 <Sun />
-                                                <span>Tarefas diárias</span>
+                                                <span>{router.pathname === '/dailytasks' ? 'Tarefas gerais' : 'Tarefas diárias'}</span>
                                                 <ChevronRight />
                                             </Link>
                                             <button className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5"
