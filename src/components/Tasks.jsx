@@ -10,11 +10,16 @@ const TaskItem = ({ index }) => {
     const shadowStyle = { boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.75)" };
     const isFirstInput = index === 0
     const [randomPlaceholder, setRandomPlaceholder] = useState('');
+    const [showButton, setShowButton] = useState(false)
 
     const handleChange = (e) => {
         const text = e.target.value;
         setTaskText(text);
     };
+
+    const handleBlur = () => {
+        setShowButton(true)
+    }
 
     useEffect(() => {
         const generateRandomPlaceholder = () => {
@@ -37,11 +42,14 @@ const TaskItem = ({ index }) => {
                             placeholder={isFirstInput ? randomPlaceholder : ""}
                             value={taskText}
                             onChange={handleChange}
+                            onBlur={handleBlur}
                         />
                     </div>
                     <div className="flex gap-2 lg:gap-4">
-                        <button className={`${taskText ? 'bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl' : 'hidden'}`}
-                            onClick={() => handleDone(index, setTaskText)}>Feito!</button>
+                        {showButton && (
+                            <button className="bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl"
+                                onClick={() => handleDone(index, setTaskText, setShowButton)}>Concluida!</button>
+                        )}
                         <Dialog.Trigger
                             className="lg:invisible group-hover:visible bg-white hover:bg-gray-200 p-2 rounded-full">
                             <MoreHorizontal size={18} />

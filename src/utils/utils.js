@@ -5,10 +5,11 @@ export const handleChange = (index, e, setTaskText) => {
     setTaskText(text)
 }
 
-export const handleDone = (index, setTaskText) => {
+export const handleDone = (index, setTaskText, setShowButton) => {
     console.log(index)
     localStorage.removeItem(`taskText_${index}`);
     setTaskText('');
+    setShowButton(false)
     console.log(`taskText_${index}`);
     toast.success('Tarefa concluída!', {
         position: 'bottom-center',
