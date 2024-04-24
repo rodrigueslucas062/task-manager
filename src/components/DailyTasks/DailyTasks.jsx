@@ -63,6 +63,17 @@ const TaskItemDaily = ({ index }) => {
         }
     }, []);
 
+    useEffect(() => {
+        const now = new Date()
+        const hours = now.getHours()
+        const minutes = now.getMinutes()
+        const seconds = now.getSeconds()
+        
+        if (hours === 0 && minutes === 0 && seconds === 0) {
+            setIsVisible(true)
+        }
+    }, [])
+
     return (
         <Dialog.Root index={index}>
             <div className={`${isVisible ? "rounded-lg inline-block m-1 max-md:px-2 p-3 w-full lg:w-1/3 relative bg-white border-4 border-zinc-900 text-zinc-900" : 'hidden'} `} style={shadowStyle}>
