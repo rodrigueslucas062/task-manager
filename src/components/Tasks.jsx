@@ -15,10 +15,13 @@ const TaskItem = ({ index }) => {
     const handleChange = (e) => {
         const text = e.target.value;
         setTaskText(text);
+        setShowButton(text.trim() !== '')
     };
 
     const handleBlur = () => {
-        setShowButton(true)
+        if (taskText.trim() !== '') {
+            setShowButton(true)
+        }
     }
 
     useEffect(() => {
