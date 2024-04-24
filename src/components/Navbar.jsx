@@ -64,11 +64,11 @@ const Navbar = () => {
                                                 <span>{notepadText}</span>
                                                 <ChevronRight />
                                             </Link>
-                                            <Link href={router.pathname === '/dailytasks' ? '/' : '/dailytasks'} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5" onClick={handleToggleTheme}>
+                                            {/* <Link href={router.pathname === '/dailytasks' ? '/' : '/dailytasks'} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5" onClick={handleToggleTheme}>
                                                 <Sun />
                                                 <span>{router.pathname === '/dailytasks' ? 'Tarefas gerais' : 'Tarefas diárias'}</span>
                                                 <ChevronRight />
-                                            </Link>
+                                            </Link> */}
                                             <button className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5"
                                                 onClick={handleToggleTheme} >
                                                 <Wallpaper />
