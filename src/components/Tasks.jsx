@@ -15,13 +15,10 @@ const TaskItem = ({ index }) => {
     const handleChange = (e) => {
         const text = e.target.value;
         setTaskText(text);
-        setShowButton(text.trim() !== '')
     };
 
     const handleBlur = () => {
-        if (taskText.trim() !== '') {
-            setShowButton(true)
-        }
+        setShowButton(taskText.trim() !== '')
     }
 
     useEffect(() => {
@@ -31,7 +28,7 @@ const TaskItem = ({ index }) => {
         }
 
         setRandomPlaceholder(generateRandomPlaceholder());
-    }, [taskText]);
+    }, [])
 
     return (
         <Dialog.Root index={index}>
@@ -51,7 +48,7 @@ const TaskItem = ({ index }) => {
                     <div className="flex gap-2 lg:gap-4">
                         {showButton && (
                             <button className="bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl"
-                                onClick={() => handleDone(index, setTaskText, setShowButton)}>Concluida!</button>
+                                onClick={() => handleDone(index, setTaskText, setShowButton)}>Concluída!</button>
                         )}
                         <Dialog.Trigger
                             className="lg:invisible group-hover:visible bg-white hover:bg-gray-200 p-2 rounded-full">
