@@ -4,6 +4,7 @@ import { handleDone, handleRemove } from "@/utils/utils";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronRight, ListTodo, Menu, MoreHorizontal, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const TaskItem = ({ index }) => {
     const [taskText, setTaskText] = useLocalStorage(`taskText_${index}`, '')
@@ -19,6 +20,13 @@ const TaskItem = ({ index }) => {
 
     const handleBlur = () => {
         setShowButton(taskText.trim() !== '')
+    }
+
+    const handleDev = () => {
+        toast.info('Em desenvolvimento', {
+            position: 'bottom-center',
+            duration: 2000,
+        })
     }
 
     useEffect(() => {
@@ -70,7 +78,8 @@ const TaskItem = ({ index }) => {
                                             Mais opções
                                         </span>
                                         <div className="flex flex-col mt-6 space-y-4 font-semibold">
-                                            <button className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5">
+                                            <button className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5"
+                                            onClick={() => handleDev()}>
                                                 <ListTodo />
                                                 <span className="flex-grow ml-4">Salvar nas tarefas diárias</span>
                                                 <ChevronRight />

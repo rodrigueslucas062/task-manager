@@ -26,6 +26,13 @@ const Navbar = () => {
         })
     }
 
+    const handleDev = () => {
+        toast.info('Em desenvolvimento', {
+            position: 'bottom-center',
+            duration: 2000,
+        })
+    }
+
     const isNotePadRoute = router.pathname === '/notepad';
     const notebookText = isNotePadRoute ? 'Anotações' : 'Tarefas Gerais';
     const notepadText = isNotePadRoute ? 'Tarefas gerais' : 'Anotações';
@@ -35,7 +42,7 @@ const Navbar = () => {
     return (
         <nav className="fixed flex top-8 w-full justify-center px-2 z-10">
             <div className="flex w-full lg:w-2/5 border-2 border-zinc-900 bg-gray-50/70 items-center justify-between px-4 py-2 rounded-full backdrop-blur-sm transition-visible duration-500 ease-in-out">
-                <Image className="rounded-xl border-2 border-zinc-900" src={Perfil} alt="Lucas Rodrigues" width={50} height={50} />
+                <Image className="rounded-xl border-2 border-zinc-900 invisible" src={Perfil} alt="Lucas Rodrigues" width={50} height={50} />
                 <h5 className="mb-1 text-xl font-semibold text-zinc-800">{router.pathname === '/dailytasks' ? 'Tarefas Diárias' : notebookText}</h5>
                 <Dialog.Root>
                     <Dialog.Trigger className="visible bg-zinc-200 hover:bg-zinc-400 text-zinc-900 hover:text-zinc-200 p-2 rounded-full">
@@ -70,7 +77,7 @@ const Navbar = () => {
                                                 <ChevronRight />
                                             </Link> */}
                                             <button className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5"
-                                                onClick={handleToggleTheme} >
+                                                onClick={() => handleDev()} >
                                                 <Wallpaper />
                                                 <span>Mudar tema</span>
                                                 <ChevronRight />
