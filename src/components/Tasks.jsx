@@ -2,7 +2,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { placeholders, questions } from "@/utils/placeholders";
 import { handleDone, handleRemove } from "@/utils/utils";
 import * as Dialog from "@radix-ui/react-dialog";
-import { ChevronRight, ListTodo, Menu, MoreHorizontal, Trash2, X } from "lucide-react";
+import { ChevronRight, ListTodo, Menu, MoreHorizontal, Plus, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -79,7 +79,7 @@ const TaskItem = ({ index }) => {
                                         </span>
                                         <div className="flex flex-col mt-6 space-y-4 font-semibold">
                                             <button className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5"
-                                            onClick={() => handleDev()}>
+                                                onClick={() => handleDev()}>
                                                 <ListTodo />
                                                 <span className="flex-grow ml-4">Salvar nas tarefas diárias</span>
                                                 <ChevronRight />
@@ -104,6 +104,7 @@ const TaskItem = ({ index }) => {
 
 const Tasks = () => {
     const [randomQuestion, setRandomQuestion] = useState('');
+    const [inputsFilled, setInputsFilled] = useState(5)
 
     useEffect(() => {
         const generateRandomQuestion = () => {
@@ -114,15 +115,26 @@ const Tasks = () => {
         setRandomQuestion(generateRandomQuestion());
     }, []);
 
+    const handleAddNewInput = () => {
+        setInputsFilled(prevCount => prevCount + 1);
+    };
+
     return (
         <Dialog.Root>
             <section className="min-h-screen">
                 <div className="flex flex-col items-center pt-40 space-y-4 max-lg:px-4">
-                    <h1 className="bg-sky-700 text-white ring-1 ring-white py-1 px-3 rounded-3xl font-semibold">Tarefas gerais</h1>
+                    <h1 className="bg-sky-700 text-white py-1 px-3 rounded-3xl font-semibold">Tarefas gerais</h1>
                     <span className="text-white text-xl font-semibold">{randomQuestion}</span>
-                    {[...Array(5)].map((_, index) => (
-                        <TaskItem key={index} index={index} />
+                    {[...Array(inputsFilled)].map((_, index) => (
+                        <TaskItem key={index} index={index} onAddNewInput={handleAddNewInput} />
                     ))}
+                    <div className="pb-4">
+                        <button className="flex gap-1 bg-sky-700 hover:bg-sky-800 text-white font-semibold py-1 px-3 rounded-3xl"
+                            onClick={handleAddNewInput}>
+                            <Plus />
+                            Adicionar Tarefa
+                        </button>
+                    </div>
                 </div>
             </section>
         </Dialog.Root>
