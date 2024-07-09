@@ -16,7 +16,7 @@ const TaskItem = ({ index }) => {
     const handleChange = (e) => {
         const text = e.target.value;
         setTaskText(text);
-    };
+    }
 
     const handleBlur = () => {
         setShowButton(taskText.trim() !== '')
