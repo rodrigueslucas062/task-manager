@@ -1,33 +1,12 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-const SEO = ({ title, description, keywords, image }) => {
+const SEO = ({ title, description, keywords }) => {
     const router = useRouter();
 
     const pageTitle = title || 'Task Tree';
     const pageDescription = description || 'ToDo list';
-    const defaultKeywords = [
-        'To-do list',
-        'Task manager',
-        'Task organizer',
-        'Productivity tool',
-        'Task scheduler',
-        'Time management',
-        'Project management',
-        'Task tracking',
-        'Task prioritization',
-        'Task collaboration',
-        'Deadline management',
-        'Daily planner',
-        'Reminder app',
-        'Goal setting',
-        'Task completion',
-        'Task assignment',
-        'Time tracking',
-        'Task progress',
-        'Workflow management',
-        'Personal organizer'
-    ];
+    const defaultKeywords = [ 'To-do list' ];
     const pageKeywords = keywords || defaultKeywords.join(', ');
 
     const canonicalUrl = `https://${router.pathname}`;
