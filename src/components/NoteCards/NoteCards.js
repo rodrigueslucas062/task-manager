@@ -31,7 +31,7 @@ const NoteCards = (NoteCardProps, handleDeleteNote) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger
-        className={`flex flex-col rounded-lg m-1 text-left p-3 md:px-2 relative border-4 border-zinc-900 ${randomColor}`}
+        className={`flex flex-col rounded-lg m-1 text-left p-3 overflow-hidden md:px-2 relative border-4 border-zinc-900 ${randomColor}`}
         style={shadowStyle} >
         {" "}
         <span className="font-semibold text-zinc-600">
@@ -52,7 +52,7 @@ const NoteCards = (NoteCardProps, handleDeleteNote) => {
             <Dialog.Close className="hover:bg-gray-300 p-2 rounded-full absolute top-2 right-2 text-zinc-900">
               <X className="size-5" />
             </Dialog.Close>
-            <div className="flex flex-1 flex-col gap-3 p-5">
+            <div className="flex flex-1 flex-col gap-3 p-5 overflow-auto">
               <span className="font-semibold text-zinc-600">
                 {formatDistanceToNow(NoteCardProps.date, {
                   locale: ptBR,
