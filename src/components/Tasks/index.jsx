@@ -2,7 +2,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { placeholders, questions } from "@/utils/placeholders";
 import { handleDone, handleRemove } from "@/utils/utils";
 import * as Dialog from "@radix-ui/react-dialog";
-import { ChevronRight, ListTodo, Menu, MoreHorizontal, Plus, Trash2, X } from "lucide-react";
+import { ChevronRight, Menu, MoreHorizontal, Plus, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -56,7 +56,7 @@ const TaskItem = ({ index }) => {
                     <div className="flex gap-2 lg:gap-4">
                         {showButton && (
                             <button className="bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl"
-                                onClick={() => handleDone(index, setTaskText, setShowButton)}>Concluída!</button>
+                                onClick={() => handleDone(index, setTaskText, setShowButton)}>Concluir</button>
                         )}
                         <Dialog.Trigger
                             className="lg:invisible group-hover:visible bg-white hover:bg-gray-200 p-2 rounded-full">
@@ -78,12 +78,12 @@ const TaskItem = ({ index }) => {
                                             Mais opções
                                         </span>
                                         <div className="flex flex-col mt-6 space-y-4 font-semibold">
-                                            <button className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5"
+                                            {/* <button className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5"
                                                 onClick={() => handleDev()}>
                                                 <ListTodo />
                                                 <span className="flex-grow ml-4">Salvar nas tarefas diárias</span>
                                                 <ChevronRight />
-                                            </button>
+                                            </button> */}
                                             <button className="flex items-center justify-between mb-2 px-3 rounded-md group ring-2 ring-red-600 py-2.5 hover:bg-red-400"
                                                 onClick={() => handleRemove(index, setTaskText)}>
                                                 <Trash2 className="w-6 h-6 text-red-600 group-hover:text-white" />
