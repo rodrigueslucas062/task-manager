@@ -22,13 +22,6 @@ const TaskItem = ({ index }) => {
         setShowButton(taskText.trim() !== '')
     }
 
-    const handleDev = () => {
-        toast.info('Em desenvolvimento', {
-            position: 'bottom-center',
-            duration: 2000,
-        })
-    }
-
     useEffect(() => {
         const generateRandomPlaceholder = () => {
             const randomIndex = Math.floor(Math.random() * placeholders.length)
@@ -78,12 +71,6 @@ const TaskItem = ({ index }) => {
                                             Mais opções
                                         </span>
                                         <div className="flex flex-col mt-6 space-y-4 font-semibold">
-                                            {/* <button className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2.5"
-                                                onClick={() => handleDev()}>
-                                                <ListTodo />
-                                                <span className="flex-grow ml-4">Salvar nas tarefas diárias</span>
-                                                <ChevronRight />
-                                            </button> */}
                                             <button className="flex items-center justify-between mb-2 px-3 rounded-md group ring-2 ring-red-600 py-2.5 hover:bg-red-400"
                                                 onClick={() => handleRemove(index, setTaskText)}>
                                                 <Trash2 className="w-6 h-6 text-red-600 group-hover:text-white" />

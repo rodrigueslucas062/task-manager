@@ -4,6 +4,17 @@ const isServer = typeof window === 'undefined';
 
 export function useLocalStorage(key, initialValue) {
   const [storedValue, setStoredValue] = useState(() => initialValue);
+  // const [tasks, setTasks] = useState([])
+
+  // function onTaskCreated(){
+  //   const newTasks = {
+  //     id: crypto.randomUUID(),
+  //     content: string,
+  //   }
+  //   const tasksArray = [newTasks, ...tasks]
+  //   setTasks(tasksArray)
+  //   localStorage.setItem('tasks', JSON.stringify(tasksArray))
+  // }
 
   const initialize = () => {
     if (isServer) {
