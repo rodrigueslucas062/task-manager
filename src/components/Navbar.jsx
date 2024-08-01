@@ -44,14 +44,24 @@ const Navbar = () => {
                                             <span className="font-semibold text-zinc-900 text-lg">{displayText}</span>
                                         </div>
                                         <div className="flex flex-col mt- space-y-4 lg:space-y-1.5 font-semibold">
-                                            <Link href={notebookLink} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5">
+                                            <Link href={'/'} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5">
                                                 {notebookIcon}
-                                                <span>{notepadText}</span>
+                                                <span>Tasks</span>
                                                 <ChevronRight />
                                             </Link>
-                                            <Link href={jiraLink} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5">
+                                            <Link href={'/notepad'} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5">
+                                                {notebookIcon}
+                                                <span>Anotações</span>
+                                                <ChevronRight />
+                                            </Link>
+                                            <Link href={'/jira'} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5">
                                                 {jiraIcon}
                                                 <span>Jira</span>
+                                                <ChevronRight />
+                                            </Link>
+                                            <Link href={'/board'} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5">
+                                                {jiraIcon}
+                                                <span>White Board</span>
                                                 <ChevronRight />
                                             </Link>
                                         </div>
