@@ -1,11 +1,81 @@
 import { placeholders, questions } from "@/utils/placeholders";
-import { handleDone } from "@/utils/utils";
+import { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronRight, Menu, MoreHorizontal, Plus, Trash2, X } from "lucide-react";
-import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-const TaskItem = ({ index, tasks, setTasks, handleRemove }) => {
+const Tasks = () => {
+    const [randomQuestion, setRandomQuestion] = useState('');
+    const [inputsFilled, setInputsFilled] = useState(5);
+    const [tasks, setTasks] = useState([]);
+
+    useEffect(() => {
+        const generateRandomQuestion = () => {
+            const randomIndex = Math.floor(Math.random() * questions.length);
+            return questions[randomIndex];
+        };
+
+        setRandomQuestion(generateRandomQuestion());
+
+        const savedTasks = localStorage.getItem('tasks');
+        if (savedTasks) {
+            setTasks(JSON.parse(savedTasks));
+        }
+    }, []);
+
+    const handleAddNewInput = () => {
+        setInputsFilled((prevCount) => prevCount + 1);
+    };
+
+    const handleRemove = (id) => {
+        const newTasks = tasks.filter((task) => task.id !== id);
+        setTasks(newTasks);
+        localStorage.setItem('tasks', JSON.stringify(newTasks));
+        toast("Tarefa removida", {
+            action: {
+                label: "Desfazer",
+                onClick: () => console.log("Desfazer"),
+            },
+            position: "bottom-center",
+            duration: 2000,
+        });
+    };
+
+    const handleDone = (id) => {
+        const newTasks = tasks.filter((task) => task.id !== id);
+        setTasks(newTasks);
+        localStorage.setItem('tasks', JSON.stringify(newTasks));
+        toast.success("Tarefa concluída!", {
+            position: "bottom-center",
+            duration: 2000,
+        });
+    };
+
+    return (
+        <Dialog.Root>
+            <section className="min-h-screen">
+                <div className="flex flex-col items-center pt-40 space-y-4 max-lg:px-4">
+                    <h1 className="bg-sky-700 text-white py-1 px-3 rounded-3xl font-semibold">Tarefas gerais</h1>
+                    <span className="text-white text-xl font-semibold">{randomQuestion}</span>
+                    {[...Array(inputsFilled)].map((_, index) => (
+                        <TaskItem key={index} index={index} tasks={tasks} setTasks={setTasks} handleRemove={handleRemove} handleDone={handleDone} />
+                    ))}
+                    <div className="pb-4">
+                        <button
+                            className="flex gap-1 bg-sky-700 hover:bg-sky-800 text-white font-semibold py-1 px-3 rounded-3xl"
+                            onClick={handleAddNewInput}
+                        >
+                            <Plus />
+                            Adicionar Tarefa
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </Dialog.Root>
+    );
+};
+
+const TaskItem = ({ index, tasks, setTasks, handleRemove, handleDone }) => {
     const shadowStyle = { boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.75)" };
     const isFirstInput = index === 0;
     const [randomPlaceholder, setRandomPlaceholder] = useState('');
@@ -66,7 +136,7 @@ const TaskItem = ({ index, tasks, setTasks, handleRemove }) => {
                         {showButton && (
                             <button
                                 className="bg-sky-700 hover:bg-sky-900 cursor-pointer text-white font-semibold py-1 px-3 rounded-3xl"
-                                onClick={() => handleDone(index, setTaskText, setShowButton)}
+                                onClick={() => handleDone(tasks[index]?.id)}
                             >
                                 Concluir
                             </button>
@@ -79,9 +149,9 @@ const TaskItem = ({ index, tasks, setTasks, handleRemove }) => {
                     </div>
                 </div>
 
-                <Dialog.Portal>
-                    <Dialog.DialogOverlay className="inset-0 fixed bg-black/20">
-                        <Dialog.DialogContent className="fixed z-10 inset-0 md:inset-auto max-md:top-[70%] lg:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[640px] w-full md:h-[60vh] bg-gray-200 max-md:rounded-t-3xl lg:rounded-3xl flex flex-col outline-none overflow-hidden">
+                <Dialog.Portal tasks={tasks} >
+                    <Dialog.Overlay className="inset-0 fixed bg-black/20">
+                        <Dialog.Content className="fixed z-10 inset-0 md:inset-auto max-md:top-[70%] lg:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[640px] w-full md:h-[60vh] bg-gray-200 max-md:rounded-t-3xl lg:rounded-3xl flex flex-col outline-none overflow-hidden">
                             <Dialog.Close className="hover:bg-gray-300 p-2 rounded-full absolute top-2 right-2 text-zinc-900">
                                 <X className="size-5" />
                             </Dialog.Close>
@@ -104,65 +174,10 @@ const TaskItem = ({ index, tasks, setTasks, handleRemove }) => {
                                     </div>
                                 </div>
                             </div>
-                        </Dialog.DialogContent>
-                    </Dialog.DialogOverlay>
+                        </Dialog.Content>
+                    </Dialog.Overlay>
                 </Dialog.Portal>
             </div>
-        </Dialog.Root>
-    );
-};
-
-const Tasks = () => {
-    const [randomQuestion, setRandomQuestion] = useState('');
-    const [inputsFilled, setInputsFilled] = useState(5);
-    const [tasks, setTasks] = useState([]);
-
-    useEffect(() => {
-        const generateRandomQuestion = () => {
-            const randomIndex = Math.floor(Math.random() * questions.length);
-            return questions[randomIndex];
-        };
-
-        setRandomQuestion(generateRandomQuestion());
-
-        const savedTasks = localStorage.getItem('tasks');
-        if (savedTasks) {
-            setTasks(JSON.parse(savedTasks));
-        }
-    }, []);
-
-    const handleAddNewInput = () => {
-        setInputsFilled((prevCount) => prevCount + 1);
-    };
-
-    const handleRemove = (id) => {
-        if (id) {
-            const newTasks = tasks.filter((task) => task.id !== id);
-            setTasks(newTasks);
-        }
-        localStorage.setItem('tasks', JSON.stringify(newTasks));
-    };
-
-    return (
-        <Dialog.Root>
-            <section className="min-h-screen">
-                <div className="flex flex-col items-center pt-40 space-y-4 max-lg:px-4">
-                    <h1 className="bg-sky-700 text-white py-1 px-3 rounded-3xl font-semibold">Tarefas gerais</h1>
-                    <span className="text-white text-xl font-semibold">{randomQuestion}</span>
-                    {[...Array(inputsFilled)].map((_, index) => (
-                        <TaskItem key={index} index={index} tasks={tasks} setTasks={setTasks} handleRemove={handleRemove} />
-                    ))}
-                    <div className="pb-4">
-                        <button
-                            className="flex gap-1 bg-sky-700 hover:bg-sky-800 text-white font-semibold py-1 px-3 rounded-3xl"
-                            onClick={handleAddNewInput}
-                        >
-                            <Plus />
-                            Adicionar Tarefa
-                        </button>
-                    </div>
-                </div>
-            </section>
         </Dialog.Root>
     );
 };
