@@ -1,32 +1,41 @@
-import { useRouter } from 'next/router';
 import * as Dialog from "@radix-ui/react-dialog";
 import Image from "next/image";
 import Perfil from '../../public/images/perfil.jpeg';
-import { ChevronRight, FlaskConical, Notebook, ListTodo, MoreHorizontal, Trash2, X } from "lucide-react";
+import { AppWindowMac, ChevronRight, CircuitBoard, FlaskConical, List, MoreHorizontal, Notebook, NotebookPen, Trash2, X } from "lucide-react";
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 const Navbar = () => {
     const router = useRouter();
+    const [sectionName, setSectionName] = useState('');
 
-    const isNotepadRoute = router.pathname === '/notepad';
-    const isJiraRoute = router.pathname === '/jira';
+    useEffect(() => {
+        const route = router.pathname;
+        const sectionName = getSectionNameFromRoute(route);
+        setSectionName(sectionName);
+    }, [router.pathname]);
 
-    const notebookText = isNotepadRoute ? 'Anotações' : 'Tarefas Gerais';
-    const notepadText = isNotepadRoute ? 'Tarefas gerais' : 'Anotações';
-    const notebookLink = isNotepadRoute ? '/' : '/notepad';
-    const notebookIcon = isNotepadRoute ? <ListTodo /> : <Notebook />;
-
-    const jiraText = isJiraRoute ? 'Anotações' : 'Tarefas gerais';
-    const jiraLink = isJiraRoute ? '/' : '/jira';
-    const jiraIcon = isJiraRoute ? <Notebook /> : <ListTodo />;
-
-    const displayText = 'Tarefas Diárias' ? (isNotepadRoute ? notebookText : jiraText) : '';
+    const getSectionNameFromRoute = (route) => {
+        switch (route) {
+            case '/':
+                return 'Tasks';
+            case '/notepad':
+                return 'Anotações';
+            case '/jira':
+                return 'Jira';
+            case '/board':
+                return 'White Board';
+            default:
+                return 'Home';
+        }
+    };
 
     return (
         <nav className="fixed flex top-4 w-full justify-center px-2 z-10">
             <div className="flex w-full lg:w-2/5 border-2 border-zinc-900 bg-gray-50/70 items-center justify-between px-4 py-2 rounded-full backdrop-blur-sm transition-visible duration-500 ease-in-out">
                 <Image className="rounded-xl border-2 border-zinc-900 invisible" src={Perfil} alt="Lucas Rodrigues" width={50} height={50} />
-                <h5 className="mb-1 text-xl font-semibold text-zinc-800">{displayText}</h5>
+                <h5 className="mb-1 text-xl font-semibold text-zinc-800">{sectionName}</h5>
                 <Dialog.Root>
                     <Dialog.Trigger className="visible bg-zinc-200 hover:bg-zinc-400 text-zinc-900 hover:text-zinc-200 p-2 rounded-full">
                         <MoreHorizontal size={18} />
@@ -41,26 +50,26 @@ const Navbar = () => {
                                 <div className="flex flex-col items-center justify-center gap-3 px-2 lg:px-4 pt-1.5">
                                     <div className="rounded-lg mt-4 lg:mt-8 justify-center inline-block w-3/4 lg:w-3/5 relative text-zinc-900">
                                         <div className='flex justify-center'>
-                                            <span className="font-semibold text-zinc-900 text-lg">{displayText}</span>
+                                            <span className="font-semibold text-zinc-900 text-lg">{sectionName}</span>
                                         </div>
                                         <div className="flex flex-col mt- space-y-4 lg:space-y-1.5 font-semibold">
                                             <Link href={'/'} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5">
-                                                {notebookIcon}
+                                                <Notebook />
                                                 <span>Tasks</span>
                                                 <ChevronRight />
                                             </Link>
                                             <Link href={'/notepad'} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5">
-                                                {notebookIcon}
+                                                <NotebookPen />
                                                 <span>Anotações</span>
                                                 <ChevronRight />
                                             </Link>
                                             <Link href={'/jira'} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5">
-                                                {jiraIcon}
+                                                <List />
                                                 <span>Jira</span>
                                                 <ChevronRight />
                                             </Link>
                                             <Link href={'/board'} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5">
-                                                {jiraIcon}
+                                                <AppWindowMac />
                                                 <span>White Board</span>
                                                 <ChevronRight />
                                             </Link>
@@ -82,7 +91,6 @@ const Navbar = () => {
                             </Dialog.Content>
                         </Dialog.Overlay>
                     </Dialog.Portal>
-
                 </Dialog.Root>
             </div>
         </nav>
