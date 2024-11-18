@@ -1,10 +1,10 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import Image from "next/image";
 import Perfil from '../../public/images/perfil.jpeg';
-import { AppWindowMac, ChevronRight, CircuitBoard, FlaskConical, List, MoreHorizontal, Notebook, NotebookPen, Trash2, X } from "lucide-react";
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { CaretRight, ChalkboardSimple, DotsThreeOutline, Flask, Kanban, ListChecks, Notepad, Trash, XCircle } from "phosphor-react";
 
 const Navbar = () => {
     const router = useRouter();
@@ -38,14 +38,14 @@ const Navbar = () => {
                 <h5 className="mb-1 text-xl font-semibold text-zinc-800">{sectionName}</h5>
                 <Dialog.Root>
                     <Dialog.Trigger className="visible bg-zinc-200 hover:bg-zinc-400 text-zinc-900 hover:text-zinc-200 p-2 rounded-full">
-                        <MoreHorizontal size={18} />
+                        <DotsThreeOutline size={20} weight="duotone" />
                     </Dialog.Trigger>
 
                     <Dialog.Portal>
                         <Dialog.Overlay className="inset-0 fixed bg-black/70">
                             <Dialog.Content className="fixed z-10 inset-0 md:inset-auto max-md:top-[45%] lg:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[640px] w-full md:h-[65vh] bg-gray-200 max-md:rounded-t-3xl lg:rounded-3xl flex flex-col outline-none overflow-hidden">
                                 <Dialog.Close className="hover:bg-gray-300 p-2 rounded-full absolute top-2 right-2 text-zinc-800">
-                                    <X className="size-5" />
+                                    <XCircle size={20} weight="duotone" />
                                 </Dialog.Close>
                                 <div className="flex flex-col items-center justify-center gap-3 px-2 lg:px-4 pt-1.5">
                                     <div className="rounded-lg mt-4 lg:mt-8 justify-center inline-block w-3/4 lg:w-3/5 relative text-zinc-900">
@@ -54,37 +54,37 @@ const Navbar = () => {
                                         </div>
                                         <div className="flex flex-col mt- space-y-4 lg:space-y-1.5 font-semibold">
                                             <Link href={'/'} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5">
-                                                <Notebook />
+                                                <ListChecks size={20} weight="duotone" />
                                                 <span>Tasks</span>
-                                                <ChevronRight />
+                                                <CaretRight size={20} />
                                             </Link>
                                             <Link href={'/notepad'} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5">
-                                                <NotebookPen />
+                                                <Notepad size={20} weight="duotone" />
                                                 <span>Anotações</span>
-                                                <ChevronRight />
+                                                <CaretRight size={20} />
                                             </Link>
                                             <Link href={'/jira'} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5">
-                                                <List />
+                                                <Kanban size={20} weight="duotone" />
                                                 <span>Jira</span>
-                                                <ChevronRight />
+                                                <CaretRight size={20} />
                                             </Link>
                                             <Link href={'/board'} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5">
-                                                <AppWindowMac />
+                                                <ChalkboardSimple size={20} weight="duotone" />
                                                 <span>White Board</span>
-                                                <ChevronRight />
+                                                <CaretRight size={20} />
                                             </Link>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="flex text-zinc-800 font-semibold mt-auto pb-2 w-3/4 lg:w-3/5 mx-auto flex-col space-y-2 bottom-0">
                                     <button className="flex items-center justify-between mb-2 px-3 rounded-md group hover:ring-2 hover:ring-red-600 py-2.5">
-                                        <Trash2 className="group-hover:text-red-600" />
+                                        <Trash size={20} weight="duotone" className="group-hover:text-red-600" />
                                         <span className="flex-grow ml-4 group-hover:text-red-600">Remover todas as tarefas</span>
-                                        <ChevronRight className="group-hover:text-red-600" />
+                                        <CaretRight size={20} className="group-hover:text-red-600" />
                                     </button>
                                     <div className="flex justify-center">
                                         <span className="text-sm">Made for </span>
-                                        <FlaskConical className="text-lime-500" />{" "}
+                                        <Flask size={20} weight="duotone" className="text-lime-500" />{" "}
                                         <span className="text-sm">By Lucas</span>
                                     </div>
                                 </div>

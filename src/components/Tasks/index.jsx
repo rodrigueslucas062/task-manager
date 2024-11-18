@@ -1,8 +1,8 @@
 import { placeholders, questions } from "@/utils/placeholders";
 import { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { ChevronRight, Menu, MoreHorizontal, Plus, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
+import { CaretRight, DotsThreeOutline, List, Plus, Trash, X, XCircle } from "phosphor-react";
 
 const Tasks = () => {
     const [randomQuestion, setRandomQuestion] = useState('');
@@ -65,7 +65,7 @@ const Tasks = () => {
                             className="flex gap-1 bg-sky-700 hover:bg-sky-800 text-white font-semibold py-1 px-3 rounded-3xl"
                             onClick={handleAddNewInput}
                         >
-                            <Plus />
+                            <Plus size={20} />
                             Adicionar Tarefa
                         </button>
                     </div>
@@ -120,7 +120,7 @@ const TaskItem = ({ index, tasks, setTasks, handleRemove, handleDone }) => {
             <div className="rounded-lg inline-block m-1 max-md:px-2 p-3 w-full lg:w-1/3 relative bg-white border-4 border-zinc-900 text-zinc-900" style={shadowStyle}>
                 <div className="flex items-center gap-2 lg:gap-4 justify-between group">
                     <div className="group-hover:visible cursor-grab bg-white hover:bg-gray-200 p-2 rounded-full">
-                        <Menu size={18} />
+                        <List size={20} />
                     </div>
                     <div className="w-full">
                         <input
@@ -144,7 +144,7 @@ const TaskItem = ({ index, tasks, setTasks, handleRemove, handleDone }) => {
                         <Dialog.Trigger
                             className="lg:invisible group-hover:visible bg-white hover:bg-gray-200 p-2 rounded-full"
                         >
-                            <MoreHorizontal size={18} />
+                            <DotsThreeOutline size={20} weight="duotone" />
                         </Dialog.Trigger>
                     </div>
                 </div>
@@ -153,7 +153,7 @@ const TaskItem = ({ index, tasks, setTasks, handleRemove, handleDone }) => {
                     <Dialog.Overlay className="inset-0 fixed bg-black/20">
                         <Dialog.Content className="fixed z-10 inset-0 md:inset-auto max-md:top-[70%] lg:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[640px] w-full md:h-[60vh] bg-gray-200 max-md:rounded-t-3xl lg:rounded-3xl flex flex-col outline-none overflow-hidden">
                             <Dialog.Close className="hover:bg-gray-300 p-2 rounded-full absolute top-2 right-2 text-zinc-900">
-                                <X className="size-5" />
+                                <XCircle size={20} weight="duotone" />
                             </Dialog.Close>
                             <div className="flex items-center justify-center p-4">
                                 <div className="rounded-lg mt-8 inline-block w-5/6 relative text-zinc-900">
@@ -166,9 +166,9 @@ const TaskItem = ({ index, tasks, setTasks, handleRemove, handleDone }) => {
                                                 className="flex items-center justify-between mb-2 px-3 rounded-md group ring-2 ring-red-600 py-2.5 hover:bg-red-400"
                                                 onClick={() => handleRemove(tasks[index]?.id)}
                                             >
-                                                <Trash2 className="w-6 h-6 text-red-600 group-hover:text-white" />
+                                                <Trash size={20} weight="duotone" className="text-red-600 group-hover:text-white" />
                                                 <span className="flex-grow ml-4 text-red-600 group-hover:text-white">Remover tarefa</span>
-                                                <ChevronRight className="text-red-600 group-hover:text-white" />
+                                                <CaretRight size={20} className="text-red-600 group-hover:text-white" />
                                             </button>
                                         </div>
                                     </div>
