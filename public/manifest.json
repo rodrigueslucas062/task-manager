@@ -1,6 +1,6 @@
 {
     "name": "Task-tree",
-    "short_name": "PWA",
+    "short_name": "Task-tree",
     "description": "Gerenciador de tarefas",
     "start_url": "/",
     "display": "standalone",
