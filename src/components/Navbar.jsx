@@ -24,7 +24,7 @@ const Navbar = () => {
                 return 'Anotações';
             case '/jira':
                 return 'Jira';
-            case '/board':
+            case '/whiteboard':
                 return 'White Board';
             default:
                 return 'Home';
@@ -68,7 +68,7 @@ const Navbar = () => {
                                                 <span>Jira</span>
                                                 <CaretRight size={20} />
                                             </Link>
-                                            <Link href={'/board'} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5">
+                                            <Link href={'/whiteboard'} className="flex justify-between px-3 rounded-md hover:bg-gray-300 py-2 lg:py-2.5">
                                                 <ChalkboardSimple size={20} weight="duotone" />
                                                 <span>White Board</span>
                                                 <CaretRight size={20} />
