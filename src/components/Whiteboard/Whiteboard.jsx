@@ -3,30 +3,24 @@ import '@xyflow/react/dist/style.css';
 import { SquareNode } from "./nodes/nodes";
 import { useCallback, useState } from "react";
 import * as ContextMenu from "@radix-ui/react-context-menu";
+import Toolbox from "./Toolbox";
 
 const CustomEdges = [];
 
-const CustomNodes = [
-    {
-        id: '1',
-        position: { x: 500, y: 500 },
-        data: { label: 'Hello' },
-        type: SquareNode,
-    },
-    {
-        id: '2',
-        position: { x: 800, y: 500 },
-        data: { label: 'World' },
-        type: SquareNode,
-    },
-];
-
 const NODE_TYPES = {
-    square: SquareNode
-}
+    square: SquareNode,
+};
 
 export default function Whiteboard() {
-    const [nodes, setNodes] = useState(CustomNodes);
+    const [nodes, setNodes] = useState([
+        {
+            id: '1',
+            type: 'square',
+            position: { x: 100, y: 100 },
+            data: { label: 'Meu Nó' }
+        },
+    ]);
+
     const [edges, setEdges] = useState(CustomEdges);
 
     const onNodesChange = useCallback(
@@ -42,48 +36,50 @@ export default function Whiteboard() {
         [],
     );
 
-
     return (
         <ContextMenu.Root>
             <ContextMenu.Trigger>
                 <div className="h-screen w-screen">
-                    <ReactFlow colorMode="dark"
+                    <ReactFlow
+                        colorMode="dark"
                         nodeTypes={NODE_TYPES}
                         nodes={nodes}
                         edges={edges}
                         onNodesChange={onNodesChange}
                         onEdgesChange={onEdgesChange}
-                        onConnect={onConnect}>
+                        onConnect={onConnect}
+                    >
                         <Background gap={24} size={2} />
                         <Controls />
+                        <Toolbox />
                     </ReactFlow>
 
-                    <ContextMenu.Content className="bg-zinc-950 rounded-lg overflow-hidden p-4 ">
-                        <ContextMenu.Item shortcut="⌘ E">Edit</ContextMenu.Item>
-                        <ContextMenu.Item shortcut="⌘ D">Duplicate</ContextMenu.Item>
+                    <ContextMenu.Content className="bg-zinc-950 rounded-lg overflow-hidden p-4">
+                        <ContextMenu.Item className="flex px-2 py-1 hover:bg-zinc-900 border-none rounded-md" shortcut="⌘ E">Edit</ContextMenu.Item>
+                        <ContextMenu.Item className="flex px-2 py-1 hover:bg-zinc-900 border-none rounded-md" shortcut="⌘ D">Duplicate</ContextMenu.Item>
                         <ContextMenu.Separator />
-                        <ContextMenu.Item shortcut="⌘ N">Archive</ContextMenu.Item>
+                        <ContextMenu.Item className="flex px-2 py-1 hover:bg-zinc-900 border-none rounded-md" shortcut="⌘ N">Archive</ContextMenu.Item>
 
-                        {/* <ContextMenu.Sub>
-                            <ContextMenu.SubTrigger>More</ContextMenu.SubTrigger>
-                            <ContextMenu.SubContent>
-                                <ContextMenu.Item>Move to project…</ContextMenu.Item>
-                                <ContextMenu.Item>Move to folder…</ContextMenu.Item>
+                        <ContextMenu.Sub>
+                            <ContextMenu.SubTrigger>Adicionar</ContextMenu.SubTrigger>
+                            <ContextMenu.SubContent className="bg-zinc-950 rounded-lg overflow-hidden p-4">
+                                <ContextMenu.Item className="flex px-2 py-1 hover:bg-zinc-900 border-none rounded-md">Texto</ContextMenu.Item>
+                                <ContextMenu.Item className="flex px-2 py-1 hover:bg-zinc-900 border-none rounded-md">Bloco</ContextMenu.Item>
                                 <ContextMenu.Separator />
-                                <ContextMenu.Item>Advanced options…</ContextMenu.Item>
+                                <ContextMenu.Item className="flex px-2 py-1 hover:bg-zinc-900 border-none rounded-md">Outros</ContextMenu.Item>
                             </ContextMenu.SubContent>
-                        </ContextMenu.Sub> */}
+                        </ContextMenu.Sub>
 
                         <ContextMenu.Separator />
-                        <ContextMenu.Item>Share</ContextMenu.Item>
-                        <ContextMenu.Item>Add to favorites</ContextMenu.Item>
+                        <ContextMenu.Item className="flex px-2 py-1 hover:bg-zinc-900 border-none rounded-md">Share</ContextMenu.Item>
+                        <ContextMenu.Item className="flex px-2 py-1 hover:bg-zinc-900 border-none rounded-md">Add to favorites</ContextMenu.Item>
                         <ContextMenu.Separator />
-                        <ContextMenu.Item shortcut="⌘ ⌫" color="red">
+                        <ContextMenu.Item className="flex px-2 py-1 hover:bg-zinc-900 border-none rounded-md" shortcut="⌘ ⌫" color="red">
                             Delete
                         </ContextMenu.Item>
                     </ContextMenu.Content>
                 </div>
             </ContextMenu.Trigger>
         </ContextMenu.Root>
-    )
+    );
 }
