@@ -1,7 +1,7 @@
-import { addEdge, applyEdgeChanges, applyNodeChanges, Background, Controls, ReactFlow } from "@xyflow/react";
+import { addEdge, Background, Controls, ReactFlow, useEdgesState, useNodesState } from "@xyflow/react";
 import '@xyflow/react/dist/style.css';
 import { SquareNode } from "./nodes/nodes";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import * as ContextMenu from "@radix-ui/react-context-menu";
 import Toolbox from "./Toolbox";
 
@@ -12,28 +12,14 @@ const NODE_TYPES = {
 };
 
 export default function Whiteboard() {
-    const [nodes, setNodes] = useState([
-        {
-            id: '1',
-            type: 'square',
-            position: { x: 100, y: 100 },
-            data: { label: 'Meu Nó' }
-        },
-    ]);
+    const [nodes, setNodes, onNodesChange] = useNodesState([]);
 
-    const [edges, setEdges] = useState(CustomEdges);
+    const [edges, setEdges, onEdgesChange] = useEdgesState(CustomEdges);
 
-    const onNodesChange = useCallback(
-        (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
-        [],
-    );
-    const onEdgesChange = useCallback(
-        (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),
-        [],
-    );
     const onConnect = useCallback(
-        (params) => setEdges((eds) => addEdge(params, eds)),
-        [],
+        (params) => {
+            return setEdges((eds) => addEdge(params, eds))
+        }, [setEdges],
     );
 
     return (
@@ -48,10 +34,11 @@ export default function Whiteboard() {
                         onNodesChange={onNodesChange}
                         onEdgesChange={onEdgesChange}
                         onConnect={onConnect}
+                        defaultEdgeOptions={{type: 'default'}}
                     >
                         <Background gap={24} size={2} />
                         <Controls />
-                        <Toolbox />
+                        <Toolbox setNodes={setNodes}/>
                     </ReactFlow>
 
                     <ContextMenu.Content className="bg-zinc-950 rounded-lg overflow-hidden p-4">
