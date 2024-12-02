@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-toolbar": "^1.1.0",
     "@radix-ui/themes": "^3.0.1",
     "@xyflow/react": "^12.3.5",
     "date-fns": "^3.6.0",
