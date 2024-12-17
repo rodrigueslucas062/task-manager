@@ -1,59 +1,34 @@
 import { Handle, Position } from "@xyflow/react";
-import { useCallback } from "react";
 
 const handleStyle = { left: 10 };
 
-export function SquareNode({ data, isConnectable }) {
-    const onChange = useCallback((evt) => {
-        console.log(evt.target.value);
-      }, []);
-     
-      return (
-        <div className="text-updater-node w-[200px] h-[200px] bg-purple-400">
-          <Handle
-            type="target"
-            position={Position.Top}
-            isConnectable={isConnectable}
-          />
-          <div>
-            <label htmlFor="text">Text:</label>
-            <input id="text" name="text" onChange={onChange} className="nodrag" />
-          </div>
-          <Handle
-            type="source"
-            position={Position.Bottom}
-            id="b"
-            isConnectable={isConnectable}
-          />
-        </div>
-      );
-}
-
-
- 
-export function TextUpdaterNode({ data, isConnectable }) {
-  const onChange = useCallback((evt) => {
-    console.log(evt.target.value);
-  }, []);
- 
+export function SquareNode({ isConnectable }) {
   return (
-    <div className="text-updater-node w-[200px] h-[200px] bg-purple-400">
+    <div className="text-updater-node w-[150px] h-[150px] rounded-md bg-purple-400">
       <Handle
         type="target"
         position={Position.Top}
         isConnectable={isConnectable}
       />
-      <div>
-        <label htmlFor="text">Text:</label>
-        <input id="text" name="text" onChange={onChange} className="nodrag" />
-      </div>
       <Handle
         type="source"
         position={Position.Bottom}
-        id="a"
-        style={handleStyle}
+        id="b"
         isConnectable={isConnectable}
       />
+    </div>
+  );
+}
+
+export function TextNode({ isConnectable }) {
+  return (
+    <div className="text-updater-node w-[150px] h-[150px] rounded-md bg-blue-400 p-2">
+      <Handle
+        type="target"
+        position={Position.Top}
+        isConnectable={isConnectable}
+      />
+      <span>vai dar pra colocar um texto aqui</span>
       <Handle
         type="source"
         position={Position.Bottom}
