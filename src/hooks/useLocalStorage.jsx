@@ -1,20 +1,20 @@
 import { useState } from 'react';
 
-export function useLocalStorage(string) {
-  const [tasks, setTasks] = useState([])
+export function useLocalStorage(key) {
 
-  const newTasks = {
-    id: crypto.randomUUID(),
-    content: string,
-  }
-  const tasksArray = [newTasks, ...tasks]
-  setTasks(tasksArray)
-  localStorage.setItem('tasks', JSON.stringify(tasksArray))
+  const [storedValue, setStoredValue] = useState("");
 
-  // useEffect(() => {
-  //   const tasksOnStorage = localStorage.getItem('taks')
-  //   if (tasksOnStorage) {
-  //     setTasks(JSON.parse(tasksOnStorage))
-  //   }
-  // }, [])
+  const setValue = (value) => {
+    try {
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      if (isClient) {
+        window.localStorage.setItem(key, JSON.stringify(valueToStore));
+      }
+    } catch (error) {
+      console.error('Error setting localStorage key:', key, error);
+    }
+  };
+
+  return [storedValue, setValue];
 }
