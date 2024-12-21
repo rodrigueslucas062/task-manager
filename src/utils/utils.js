@@ -1,3 +1,4 @@
+import { getConnectedEdges, getIncomers, getOutgoers } from "@xyflow/react";
 import { toast } from "sonner";
 
 export const handleChange = (index, e, setTaskText) => {
@@ -29,16 +30,16 @@ export const handleRemove = (index, setTaskText) => {
 };
 
 export const handleAddNode = (event, setNodes) => {
-    const position = { x: event.clientX, y: event.clientY };
-    addSquareNode({ setNodes, position });
+  const position = { x: event.clientX, y: event.clientY };
+  addSquareNode({ setNodes, position });
 };
 
 export const handleAddTextNode = (event, setNodes) => {
-    const position = { x: event.clientX, y: event.clientY };
-    addTextSquareNode({ setNodes, position });
+  const position = { x: event.clientX, y: event.clientY };
+  addTextSquareNode({ setNodes, position });
 };
 
-export const addSquareNode = ({ setNodes, position = { x: 200, y: 100 } }) => {
+export const addSquareNode = ({ setNodes, position = { x: 800, y: 400 } }) => {
   setNodes((nodes) => [
     ...nodes,
     {
@@ -50,14 +51,48 @@ export const addSquareNode = ({ setNodes, position = { x: 200, y: 100 } }) => {
   ]);
 };
 
-export const addTextSquareNode = ({ setNodes, position = { x: 200, y: 100 } }) => {
-    setNodes((nodes) => [
-      ...nodes,
-      {
-        id: crypto.randomUUID(),
-        type: "text",
-        position,
-        data: { label: "Meu Nó" },
-      },
-    ]);
-  };
+export const addTextSquareNode = ({
+  setNodes,
+  position = { x: 800, y: 400 },
+}) => {
+  setNodes((nodes) => [
+    ...nodes,
+    {
+      id: crypto.randomUUID(),
+      type: "text",
+      position,
+      data: { label: "Meu Nó" },
+    },
+  ]);
+};
+
+export const handleDelete = () => {
+  setNodes((nodes) => nodes.filter((node) => node.id !== id));
+};
+
+export const handleDeleteNode = ({ id, nodes, edges, setNodes, setEdges }) => {
+  setNodes((prevNodes) => prevNodes.filter((node) => node.id !== id));
+
+  setEdges((prevEdges) => {
+    const nodeToDelete = nodes.find((node) => node.id === id);
+    if (!nodeToDelete) return prevEdges;
+
+    const incomers = getIncomers(nodeToDelete, nodes, edges);
+    const outgoers = getOutgoers(nodeToDelete, nodes, edges);
+    const connectedEdges = getConnectedEdges([nodeToDelete], edges);
+
+    const remainingEdges = prevEdges.filter(
+      (edge) => !connectedEdges.includes(edge)
+    );
+
+    const newEdges = incomers.flatMap(({ id: source }) =>
+      outgoers.map(({ id: target }) => ({
+        id: `${source}->${target}`,
+        source,
+        target,
+      }))
+    );
+
+    return [...remainingEdges, ...newEdges];
+  });
+};

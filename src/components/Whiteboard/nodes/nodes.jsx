@@ -1,21 +1,31 @@
 import { Handle, Position } from "@xyflow/react";
 import * as ContextMenu from "@radix-ui/react-context-menu";
+import { handleDeleteNode } from "@/utils/utils";
 
-const handleStyle = { left: 10 };
+export function SquareNode({
+  id,
+  isConnectable,
+  nodes,
+  edges,
+  setNodes,
+  setEdges,
+}) {
+  const handleDelete = () => {
+    handleDeleteNode({ id, nodes, edges, setNodes, setEdges });
+  };
 
-export function SquareNode({ isConnectable }) {
   return (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
-        <div className="text-updater-node w-[150px] h-[150px] rounded-md bg-purple-400">
+        <div className="text-updater-node w-[150px] h-[150px] rounded-md bg-purple-400 cursor-pointer group">
           <Handle
             type="target"
-            position={Position.Top}
+            position="top"
             isConnectable={isConnectable}
           />
           <Handle
             type="source"
-            position={Position.Bottom}
+            position="bottom"
             id="b"
             isConnectable={isConnectable}
           />
@@ -23,11 +33,11 @@ export function SquareNode({ isConnectable }) {
 
         <ContextMenu.Content className="bg-zinc-950 rounded-lg overflow-hidden p-2 min-w-44">
           <ContextMenu.Item className="flex px-2 py-1 hover:bg-zinc-900 border-none rounded-md">
-            <button>Adicionar handle</button>
+            <button>Adicionar Conexão</button>
           </ContextMenu.Item>
           <ContextMenu.Separator />
           <ContextMenu.Item className="flex px-2 py-1 hover:bg-zinc-900 border-none rounded-md">
-            <button>Deletar</button>
+            <button onClick={handleDelete}>Deletar</button>
           </ContextMenu.Item>
         </ContextMenu.Content>
       </ContextMenu.Trigger>
@@ -35,20 +45,31 @@ export function SquareNode({ isConnectable }) {
   );
 }
 
-export function TextNode({ isConnectable }) {
+export function TextNode({
+  id,
+  isConnectable,
+  nodes,
+  edges,
+  setNodes,
+  setEdges,
+}) {
+  const handleDelete = () => {
+    handleDeleteNode({ id, nodes, edges, setNodes, setEdges });
+  };
+
   return (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
-        <div className="text-updater-node w-[150px] h-[150px] rounded-md bg-blue-400 p-2">
+        <div className="text-updater-node w-[150px] h-[150px] rounded-md bg-blue-400 p-2 cursor-pointer group">
           <Handle
             type="target"
-            position={Position.Top}
+            position="top"
             isConnectable={isConnectable}
           />
-          <span>vai dar pra colocar um texto aqui</span>
+          <div className="text-center">vai dar pra colocar um texto aqui</div>
           <Handle
             type="source"
-            position={Position.Bottom}
+            position="bottom"
             id="b"
             isConnectable={isConnectable}
           />
@@ -61,7 +82,7 @@ export function TextNode({ isConnectable }) {
         </ContextMenu.Item>
         <ContextMenu.Separator />
         <ContextMenu.Item className="flex px-2 py-1 hover:bg-zinc-900 border-none rounded-md">
-          <button>Deletar</button>
+          <button onClick={handleDelete}>Deletar</button>
         </ContextMenu.Item>
       </ContextMenu.Content>
     </ContextMenu.Root>
