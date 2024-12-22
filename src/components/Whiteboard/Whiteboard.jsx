@@ -1,7 +1,7 @@
-import { addEdge, Background, ConnectionMode, Controls, MiniMap, ReactFlow, useEdgesState, useNodesState } from "@xyflow/react";
+import { addEdge, Background, ConnectionMode, Controls, MiniMap, ReactFlow, SelectionMode, useEdgesState, useNodesState } from "@xyflow/react";
 import '@xyflow/react/dist/style.css';
 import { SquareNode, TextNode } from "./nodes/nodes";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import * as ContextMenu from "@radix-ui/react-context-menu";
 import Toolbox from "./Toolbox";
 import { handleAddNode, handleAddTextNode, handleDeleteNode } from "@/utils/utils";
@@ -10,6 +10,7 @@ import { DefaultEdges } from "./edges/DefaultEdges";
 export default function Whiteboard() {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+    const [activeTool, setActiveTool] = useState("pointer")
 
     const NODE_TYPES = useMemo(
         () => ({
@@ -42,6 +43,17 @@ export default function Whiteboard() {
         [setEdges]
     );
 
+    const flowProps = useMemo(() => {
+        if (activeTool === "pointer") {
+            console.log('hehe true')
+            return {
+                panOnScroll: false,
+                selectionOnDrag: true,
+                panOnDrag: [],
+            };
+        }
+    }, [activeTool]);
+
     return (
         <ContextMenu.Root>
             <ContextMenu.Trigger>
@@ -58,11 +70,12 @@ export default function Whiteboard() {
                         onDelete={handleDeleteNode}
                         defaultEdgeOptions={{ type: 'default' }}
                         connectionMode={ConnectionMode.Loose}
+                        {...flowProps}
                     >
                         <Background gap={24} size={2} />
                         <Controls />
                         <MiniMap pannable zoomable nodeStrokeColor={"transparent"} maskStrokeColor={"none"} maskColor={"rgb(255, 255, 255, 0.0)"} position={"top-right"} className="bg-transparent" ariaLabel={"React Flow mini map"} />
-                        <Toolbox setNodes={setNodes} />
+                        <Toolbox setNodes={setNodes} activeTool={activeTool} setActiveTool={setActiveTool} />
                     </ReactFlow>
                 </div>
             </ContextMenu.Trigger>
