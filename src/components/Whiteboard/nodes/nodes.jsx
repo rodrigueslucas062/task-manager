@@ -1,4 +1,4 @@
-import { Handle, Position } from "@xyflow/react";
+import { Handle, NodeToolbar } from "@xyflow/react";
 import * as ContextMenu from "@radix-ui/react-context-menu";
 import { handleDeleteNode } from "@/utils/utils";
 
@@ -17,6 +17,11 @@ export function SquareNode({
   return (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
+        <NodeToolbar position={"top"}>
+          <div className=" flex gap-2 bg-zinc-900 rounded-lg px-2 py-1 border border-purple-400">
+            <button>Cor</button>
+          </div>
+        </NodeToolbar>
         <div className="text-updater-node w-[150px] h-[150px] rounded-md bg-purple-400 cursor-pointer group">
           <Handle
             type="target"
@@ -60,6 +65,11 @@ export function TextNode({
   return (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
+        <NodeToolbar position={"top"}>
+          <div className=" flex gap-2 bg-zinc-900 rounded-lg px-2 py-1 border border-purple-400">
+            <button>Cor</button>
+          </div>
+        </NodeToolbar>
         <div className="text-updater-node w-[150px] h-[150px] rounded-md bg-blue-400 p-2 cursor-pointer group">
           <Handle
             type="target"
