@@ -1,4 +1,4 @@
-import { addSquareNode, addTextSquareNode } from '@/utils/utils';
+import { addSquareNode, addTextSquareNode, handleAddPostIt } from '@/utils/utils';
 import * as Toolbar from '@radix-ui/react-toolbar';
 import { Cursor, HandGrabbing } from 'phosphor-react';
 
@@ -39,7 +39,13 @@ export default function Toolbox({ setNodes, setActiveTool }) {
                 className="size-16 bg-blue-400 rounded-md transition-transform hover:-translate-y-2"
                 onClick={() => addTextSquareNode({ setNodes })}
             />
+            <Toolbar.Separator className="mx-2 bg-white" />
+            <Toolbar.Button
+                className="h-12 w-16 bg-yellow-300 rounded-md transition-transform hover:-translate-y-2 shadow-[8px_8px_0px_rgba(0,0,0,0.75)]"
+                onClick={() => handleAddPostIt({ setNodes })}
+            >
+                <div className="text-zinc-900 text-sm font-semibold">Post-Its</div>
+            </Toolbar.Button>
         </Toolbar.Root>
-
     );
 }

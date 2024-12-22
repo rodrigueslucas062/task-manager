@@ -1,6 +1,6 @@
 import { addEdge, Background, ConnectionMode, Controls, MiniMap, ReactFlow, SelectionMode, useEdgesState, useNodesState } from "@xyflow/react";
 import '@xyflow/react/dist/style.css';
-import { SquareNode, TextNode } from "./nodes/nodes";
+import { PostItNode, SquareNode, TextNode } from "./nodes/nodes";
 import { useCallback, useMemo, useState } from "react";
 import * as ContextMenu from "@radix-ui/react-context-menu";
 import Toolbox from "./Toolbox";
@@ -32,6 +32,15 @@ export default function Whiteboard() {
                     setEdges={setEdges}
                 />
             ),
+            postit: (props) => (
+                <PostItNode
+                    {...props}
+                    nodes={nodes}
+                    edges={edges}
+                    setNodes={setNodes}
+                    setEdges={setEdges}
+                />
+            )
         }),
         [nodes, edges, setNodes, setEdges]
     );
@@ -86,9 +95,9 @@ export default function Whiteboard() {
                                 Adicionar bloco
                             </button>
                         </ContextMenu.Item> */}
-                {/* <ContextMenu.Item className="flex px-2 py-1 hover:bg-zinc-900 border-none rounded-md" shortcut="⌘ D">Duplicate</ContextMenu.Item>
+                <ContextMenu.Item className="flex px-2 py-1 hover:bg-zinc-900 border-none rounded-md" shortcut="⌘ D">Duplicate</ContextMenu.Item>
                         <ContextMenu.Separator />
-                        <ContextMenu.Item className="flex px-2 py-1 hover:bg-zinc-900 border-none rounded-md" shortcut="⌘ N">Archive</ContextMenu.Item> */}
+                        <ContextMenu.Item className="flex px-2 py-1 hover:bg-zinc-900 border-none rounded-md" shortcut="⌘ N">Archive</ContextMenu.Item>
 
                 <ContextMenu.Sub>
                     <ContextMenu.SubTrigger className="flex justify-center px-2 py-1 hover:bg-violet-600 border-none rounded-md" shortcut="⌘ E">Adicionar</ContextMenu.SubTrigger>
