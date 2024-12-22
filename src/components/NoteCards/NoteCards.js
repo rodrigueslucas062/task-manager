@@ -26,13 +26,11 @@ const handleDeleteNote = {
 const NoteCards = (NoteCardProps, handleDeleteNote) => {
   const randomColor =
     availableColors[Math.floor(Math.random() * availableColors.length)];
-  const shadowStyle = { boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.75)" };
 
   return (
     <Dialog.Root>
       <Dialog.Trigger
-        className={`flex flex-col rounded-lg m-1 text-left p-3 overflow-hidden md:px-2 relative border-4 border-zinc-900 ${randomColor}`}
-        style={shadowStyle} >
+        className={`flex flex-col rounded-lg m-1 text-left p-3 overflow-hidden md:px-2 relative border-4 border-zinc-900 shadow-[8px_8px_0px_rgba(0,0,0,0.75)] ${randomColor}`} >
         {" "}
         <span className="font-semibold text-zinc-600">
           {formatDistanceToNow(NoteCardProps.date, {
