@@ -1,6 +1,7 @@
+import { TooltipDemo } from '@/utils/tooltip';
 import { addSquareNode, addTextSquareNode, handleAddPostIt } from '@/utils/utils';
 import * as Toolbar from '@radix-ui/react-toolbar';
-import { Cursor, HandGrabbing } from 'phosphor-react';
+import { HandGrabbing, NavigationArrow } from 'phosphor-react';
 
 export default function Toolbox({ setNodes, setActiveTool }) {
     return (
@@ -16,21 +17,25 @@ export default function Toolbox({ setNodes, setActiveTool }) {
                 className="flex flex-col gap-1 pb-2"
             >
                 <Toolbar.ToggleItem
-                    className="inline-flex size-8 flex-shrink-0 flex-grow-0 basis-auto items-center justify-center rounded bg-white text-zinc-900 px-[5px] text-[13px] leading-none text-mauve11 outline-none first:ml-0 hover:bg-violet-400 hover:text-violet-900 focus:relative focus:shadow-[0_0_0_2px] focus:shadow-violet-700 data-[state=on]:bg-violet-300 data-[state=on]:text-violet-900"
+                    className="inline-flex size-8 flex-shrink-0 flex-grow-0 basis-auto items-center justify-center rounded bg-white text-zinc-900 px-1 text-sm leading-none text-mauve11 outline-none first:ml-0 hover:bg-violet-400 hover:text-violet-900 focus:relative focus:shadow-[0_0_0_2px] focus:shadow-violet-700 data-[state=on]:bg-violet-300 data-[state=on]:text-violet-900"
                     value="pointer"
                     aria-label="Cursor pointer"
                 >
-                    <Cursor size={24} weight="duotone" />
+                    <TooltipDemo tooltipText="Selecionar" side={'left'}>
+                        <NavigationArrow size={24} weight="duotone" />
+                    </TooltipDemo>
                 </Toolbar.ToggleItem>
                 <Toolbar.ToggleItem
-                    className="inline-flex size-8 flex-shrink-0 flex-grow-0 basis-auto items-center justify-center rounded bg-white text-zinc-900 px-[5px] text-[13px] leading-none text-mauve11 outline-none first:ml-0 hover:bg-violet-400 hover:text-violet-900 focus:relative focus:shadow-[0_0_0_2px] focus:shadow-violet-700 data-[state=on]:bg-violet-300 data-[state=on]:text-violet-900"
+                    className="inline-flex size-8 flex-shrink-0 flex-grow-0 basis-auto items-center justify-center rounded bg-white text-zinc-900 px-1 text-sm leading-none text-mauve11 outline-none first:ml-0 hover:bg-violet-400 hover:text-violet-900 focus:relative focus:shadow-[0_0_0_2px] focus:shadow-violet-700 data-[state=on]:bg-violet-300 data-[state=on]:text-violet-900"
                     value="hand"
                     aria-label="Hand"
                 >
-                    <HandGrabbing size={24} weight="duotone" />
+                    <TooltipDemo tooltipText="Agarrar" side={'left'}>
+                        <HandGrabbing size={24} weight="duotone" />
+                    </TooltipDemo>
                 </Toolbar.ToggleItem>
             </Toolbar.ToggleGroup>
-            <Toolbar.Separator className="mx-2 bg-white" />
+            <Toolbar.Separator className="mx-1.5 w-px bg-white " />
             <Toolbar.Button
                 className="size-16 bg-violet-400 rounded transition-transform hover:-translate-y-2"
                 onClick={() => addSquareNode({ setNodes })}
@@ -44,7 +49,7 @@ export default function Toolbox({ setNodes, setActiveTool }) {
                 className="h-12 w-16 bg-yellow-300 rounded-md transition-transform hover:-translate-y-2 shadow-[8px_8px_0px_rgba(0,0,0,0.75)]"
                 onClick={() => handleAddPostIt({ setNodes })}
             >
-                <div className="text-zinc-900 text-sm font-semibold">Post-Its</div>
+                <span className="text-zinc-900 text-sm font-semibold">Post-Its</span>
             </Toolbar.Button>
         </Toolbar.Root>
     );

@@ -70,6 +70,12 @@ export const handleAddTextNode = (event, setNodes) => {
   addTextSquareNode({ setNodes, position });
 };
 
+export const handleAddStickyNotesNode = (event, setNodes) => {
+  const position = { x: event.clientX, y: event.clientY };
+  handleAddPostIt({ setNodes, position });
+};
+
+
 export const addSquareNode = ({ setNodes, position = { x: 800, y: 400 } }) => {
   setNodes((nodes) => [
     ...nodes,
