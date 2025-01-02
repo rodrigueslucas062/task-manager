@@ -1,5 +1,5 @@
 import { TooltipDemo } from '@/utils/tooltip';
-import { addSquareNode, addTextSquareNode, handleAddPostIt } from '@/utils/utils';
+import { addCircleNode, addSquareNode, addTextSquareNode, handleAddCircleNode, handleAddPostIt } from '@/utils/utils';
 import * as Toolbar from '@radix-ui/react-toolbar';
 import { HandGrabbing, NavigationArrow } from 'phosphor-react';
 
@@ -35,15 +35,30 @@ export default function Toolbox({ setNodes, setActiveTool }) {
                     </TooltipDemo>
                 </Toolbar.ToggleItem>
             </Toolbar.ToggleGroup>
-            <Toolbar.Separator className="mx-1.5 w-px bg-white " />
-            <Toolbar.Button
-                className="size-16 bg-violet-400 rounded transition-transform hover:-translate-y-2"
-                onClick={() => addSquareNode({ setNodes })}
-            />
-            <Toolbar.Button
+            <Toolbar.Separator className="mx-1 bg-white" />
+            <Toolbar.ToggleGroup
+                type="single"
+                defaultValue="pointer"
+                aria-label="Cursor type"
+                className="grid grid-cols-2 gap-1 pb-2 transition-transform hover:-translate-y-1 group"
+            >
+                <Toolbar.Button
+                    className="size-8 bg-violet-400 rounded group:transition-transform hover:-translate-y-1"
+                    onClick={() => addSquareNode({ setNodes })}
+                />
+                <Toolbar.Button
+                    className="size-8 bg-blue-400 rounded-full group:transition-transform hover:-translate-y-1"
+                    onClick={() => handleAddCircleNode({ setNodes })}
+                />
+                <Toolbar.Button
+                    className="size-8 bg-red-400 rounded group:transition-transform hover:-translate-y-1"
+                    onClick={() => addSquareNode({ setNodes })}
+                />
+            </Toolbar.ToggleGroup>
+            {/* <Toolbar.Button
                 className="size-16 bg-blue-400 rounded-md transition-transform hover:-translate-y-2"
                 onClick={() => addTextSquareNode({ setNodes })}
-            />
+            /> */}
             <Toolbar.Separator className="mx-2 bg-white" />
             <Toolbar.Button
                 className="h-12 w-16 bg-yellow-300 rounded-md transition-transform hover:-translate-y-2 shadow-[8px_8px_0px_rgba(0,0,0,0.75)]"

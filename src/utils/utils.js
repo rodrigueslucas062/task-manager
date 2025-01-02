@@ -70,6 +70,11 @@ export const handleAddTextNode = (event, setNodes) => {
   addTextSquareNode({ setNodes, position });
 };
 
+export const handleAddCircleNode = (event, setNodes) => {
+  const position = { x: event.clientX, y: event.clientY };
+  addCircleNode({ setNodes, position });
+};
+
 export const handleAddStickyNotesNode = (event, setNodes) => {
   const position = { x: event.clientX, y: event.clientY };
   handleAddPostIt({ setNodes, position });
@@ -82,6 +87,18 @@ export const addSquareNode = ({ setNodes, position = { x: 800, y: 400 } }) => {
     {
       id: crypto.randomUUID(),
       type: "square",
+      position,
+      data: { label: "Meu Nó" },
+    },
+  ]);
+};
+
+export const addCircleNode = ({ setNodes, position = { x: 800, y: 400 } }) => {
+  setNodes((nodes) => [
+    ...nodes,
+    {
+      id: crypto.randomUUID(),
+      type: "circle",
       position,
       data: { label: "Meu Nó" },
     },

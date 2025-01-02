@@ -1,10 +1,10 @@
 import { addEdge, Background, ConnectionMode, Controls, MiniMap, ReactFlow, SelectionMode, useEdgesState, useNodesState } from "@xyflow/react";
 import '@xyflow/react/dist/style.css';
-import { PostItNode, SquareNode, TextNode } from "./nodes/nodes";
+import { CircleNode, PostItNode, SquareNode, TextNode } from "./nodes/nodes";
 import { useCallback, useMemo, useState } from "react";
 import * as ContextMenu from "@radix-ui/react-context-menu";
 import Toolbox from "./Toolbox";
-import { handleAddNode, handleAddPostIt, handleAddStickyNotesNode, handleAddTextNode, handleDeleteNode } from "@/utils/utils";
+import { handleAddCircleNode, handleAddNode, handleAddPostIt, handleAddStickyNotesNode, handleAddTextNode, handleDeleteNode } from "@/utils/utils";
 import { DefaultEdges } from "./edges/DefaultEdges";
 import { CaretRight } from "phosphor-react";
 
@@ -24,8 +24,8 @@ export default function Whiteboard() {
                     setEdges={setEdges}
                 />
             ),
-            text: (props) => (
-                <TextNode
+            circle: (props) => (
+                <CircleNode
                     {...props}
                     nodes={nodes}
                     edges={edges}
@@ -55,7 +55,6 @@ export default function Whiteboard() {
 
     const flowProps = useMemo(() => {
         if (activeTool === "pointer") {
-            console.log('hehe true')
             return {
                 panOnScroll: false,
                 selectionOnDrag: true,
@@ -95,8 +94,8 @@ export default function Whiteboard() {
                             <button onClick={handleAddNode}>
                                 Adicionar bloco
                             </button>
-                        </ContextMenu.Item> */}
-                {/* <ContextMenu.Item className="flex px-2 hover:bg-zinc-900 border-none rounded-md" shortcut="⌘ D">Duplicate</ContextMenu.Item>
+                        </ContextMenu.Item>
+                <ContextMenu.Item className="flex px-2 hover:bg-zinc-900 border-none rounded-md" shortcut="⌘ D">Duplicate</ContextMenu.Item>
                 <ContextMenu.Separator />
                 <ContextMenu.Item className="flex px-2 hover:bg-zinc-900 border-none rounded-md" shortcut="⌘ N">Archive</ContextMenu.Item> */}
 
@@ -113,7 +112,7 @@ export default function Whiteboard() {
                             Adicionar bloco
                         </ContextMenu.Item>
                         <ContextMenu.Item className="flex px-2 py-0.5 hover:bg-violet-600 border-none rounded-md w-full cursor-pointer"
-                            onClick={(event) => handleAddTextNode(event, setNodes)}>
+                            onClick={(event) => handleAddCircleNode(event, setNodes)}>
                             Adicionar bloco azul
                         </ContextMenu.Item>
                         <ContextMenu.Separator className="my-3 h-0.5 bg-white rounded-full" />

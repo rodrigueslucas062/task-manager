@@ -81,7 +81,7 @@ export function SquareNode({
   );
 }
 
-export function TextNode({
+export function CircleNode({
   id,
   isConnectable,
   nodes,
@@ -101,13 +101,12 @@ export function TextNode({
             <button>Cor</button>
           </div>
         </NodeToolbar>
-        <div className="text-updater-node w-[150px] h-[150px] rounded-md bg-blue-400 p-2 cursor-pointer group">
+        <div className="text-updater-node w-[150px] h-[150px] rounded-full bg-blue-400 p-2 cursor-pointer group">
           <Handle
             type="target"
             position="top"
             isConnectable={isConnectable}
           />
-          <div className="text-center">vai dar pra colocar um texto aqui</div>
           <Handle
             type="source"
             position="bottom"
