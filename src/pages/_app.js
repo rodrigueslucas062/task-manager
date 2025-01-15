@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Navbar/Navbar";
 import SEO from "@/components/SEO";
 import "@/styles/globals.css";
 import { useEffect, useRef } from "react";
