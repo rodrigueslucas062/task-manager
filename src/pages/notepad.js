@@ -1,4 +1,4 @@
-import NotepadCards from "@/components/NoteCards/Index";
+import NotepadCards from "@/components/NoteCards";
 
 export default function NotePads() {
   return (
