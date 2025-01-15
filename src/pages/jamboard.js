@@ -1,4 +1,4 @@
-import Whiteboard from "@/components/Whiteboard/Whiteboard";
+import Whiteboard from "@/components/Whiteboard/Jamboard";
 
 export default function WhiteboardPage() {
   return <Whiteboard />;
