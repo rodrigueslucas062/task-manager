@@ -7,7 +7,6 @@ const NewNoteCards = ({ onNoteCreated }) => {
   const [shouldShowOnBoarding, setShouldShowOnBoarding] = useState(true);
   const [content, setContent] = useState("");
   const [isRecording, setIsRecording] = useState(false);
-  const shadowStyle = { boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.75)" };
 
   function handleStartEditor() {
     setShouldShowOnBoarding(false);
@@ -32,7 +31,7 @@ const NewNoteCards = ({ onNoteCreated }) => {
     setShouldShowOnBoarding(true);
   }
 
-  function handleStartRecording(event) {
+  function handleStartRecording() {
     const isSpeechRecognitionAPIAvaliable =
       "SpeechRecognition" in window || "webkitSpeechRecognition" in window;
     if (!isSpeechRecognitionAPIAvaliable) {
@@ -71,9 +70,7 @@ const NewNoteCards = ({ onNoteCreated }) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger
-        className="rounded-lg inline-block m-1 max-md:px-2 p-3 relative bg-white border-4 border-zinc-900 text-zinc-900"
-        style={shadowStyle}
-      >
+        className="rounded-lg inline-block m-1 max-md:px-2 p-3 relative bg-white border-4 border-zinc-900 text-zinc-900 shadow-[8px_8px_0px_rgba(0,0,0,0.75)]">
         <span className="font-semibold text-zinc-900">Adicionar nota</span>
         <p className="text-sm font-semibold leading-6 text-zinc-500 ">
           Grave uma nota em áudio que será convertida para texto
@@ -149,4 +146,5 @@ const NewNoteCards = ({ onNoteCreated }) => {
     </Dialog.Root>
   );
 };
+
 export default NewNoteCards;

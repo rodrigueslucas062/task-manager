@@ -9,21 +9,9 @@ const availableColors = [
   "bg-emerald-300",
   "bg-pink-200",
   "bg-white",
-];
+]
 
-const NoteCardProps = {
-  id: String,
-  date: Date,
-  content: String,
-};
-
-const handleDeleteNote = {
-  id: String,
-  date: Date,
-  content: String,
-};
-
-const NoteCards = (NoteCardProps, handleDeleteNote) => {
+const NoteCards = (NoteCardProps) => {
   const randomColor =
     availableColors[Math.floor(Math.random() * availableColors.length)];
 
@@ -38,7 +26,7 @@ const NoteCards = (NoteCardProps, handleDeleteNote) => {
             addSuffix: true,
           })}
         </span>
-        <p className="leading-6 font-semibold text-zinc-900 ">
+        <p className="leading-6 font-semibold text-zinc-900 whitespace-pre-wrap">
           {NoteCardProps.content}
         </p>
         <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/30 to-black/0 pointer-events-none"></div>
@@ -57,7 +45,7 @@ const NoteCards = (NoteCardProps, handleDeleteNote) => {
                   addSuffix: true,
                 })}
               </span>
-              <p className="leading-6 font-semibold text-zinc-900 ">
+              <p className="leading-6 font-semibold text-zinc-900 whitespace-pre-wrap">
                 {NoteCardProps.content}
               </p>
             </div>

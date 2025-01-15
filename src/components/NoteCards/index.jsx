@@ -3,11 +3,9 @@ import NewNoteCards from "./NewNoteCards";
 import NoteCards from "./NoteCards";
 import { MagnifyingGlass } from "phosphor-react";
 
-
 const NotepadCards = () => {
     const [search, setSearch] = useState('')
     const [notes, setNotes] = useState([])
-    const shadowStyle = { boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.75)" };
 
     useEffect(() => {
         const notesOnStorage = localStorage.getItem('notes')
@@ -16,40 +14,37 @@ const NotepadCards = () => {
         }
     }, [])
 
-    function onNoteCreated(string) {
+    function onNoteCreated(content) {
+        if (!content.trim()) return;
+
         const newNote = {
             id: crypto.randomUUID(),
-            date: new Date(),
-            content: string,
-        }
-        const notesArray = [newNote, ...notes]
-        setNotes(notesArray)
-        localStorage.setItem('notes', JSON.stringify(notesArray))
+            date: new Date().toISOString(),
+            content: content.trim(),
+        };
+
+        const updatedNotes = [newNote, ...notes];
+        setNotes(updatedNotes);
+        localStorage.setItem('notes', JSON.stringify(updatedNotes));
     }
 
-    function handleSearch(event) {
-        const query = event.target.value
-
-        setSearch(query)
-    }
+    const handleSearch = (event) => setSearch(event.target.value);
 
     function handleDeleteNote(id) {
-        const notesArray = notes.filter(note => {
-            return note.id !== id
-        })
-        setNotes(notesArray)
-        localStorage.setItem('notes', JSON.stringify(notesArray))
+        const notesArray = notes.filter(note => note.id !== id);
+        setNotes(notesArray);
+        localStorage.setItem('notes', JSON.stringify(notesArray));
     }
 
-    const filteredNotes = search !== ''
-        ? notes.filter(note => note.content.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
-        : notes
+    const filteredNotes = notes.filter(note =>
+        note.content.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+    );
 
     return (
-        <section className="zig-zag min-h-screen min-w-screen">
+        <section className="min-h-screen min-w-screen">
             <div className="mx-auto max-w-6xl space-y-6 px-5">
                 <form className="w-full pt-32">
-                    <div className="relative rounded-lg inline-block w-full bg-white border-4 border-zinc-900 text-zinc-900" style={shadowStyle}>
+                    <div className="relative rounded-lg inline-block w-full bg-white border-4 border-zinc-900 text-zinc-900 shadow-[8px_8px_0px_rgba(0,0,0,0.75)]">
                         <input
                             type="text"
                             placeholder="Busque em suas notas..."

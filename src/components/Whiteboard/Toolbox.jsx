@@ -1,4 +1,4 @@
-import { TooltipDemo } from '@/utils/tooltip';
+import { TooltipDemo } from '@/components/Tooltip';
 import { addCircleNode, addSquareNode, addTextSquareNode, handleAddCircleNode, handleAddPostIt } from '@/utils/utils';
 import * as Toolbar from '@radix-ui/react-toolbar';
 import { HandGrabbing, NavigationArrow } from 'phosphor-react';
