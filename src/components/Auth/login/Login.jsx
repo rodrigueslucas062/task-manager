@@ -1,26 +1,34 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { doSignInWithEmailAndPassword } from "../../../utils/firebase";
 import { useAuth } from "@/components/Context/authContext/authContext";
 
 export default function Login() {
-    const {isAuthenticated} = useAuth();
+    const {isAuthenticated, login} = useAuth();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [isSingIn, setIsSignIn] = useState(false);
+    const [isSignIn, setIsSignIn] = useState(false);
     const [error, setError] = useState("");
     const router = useRouter();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (!isSingIn) {
-            setIsSignIn(true);
-            await doSignInWithEmailAndPassword(email, password);
+        if (!isSignIn) {
+          setIsSignIn(true);
+          try {
+            await login(email, password);
             router.push("/notepad");
+          } catch (err) {
+            setError("Failed to sign in. Please check your credentials.");
+          }
         }
-    };
+      };
+    
+      if (isAuthenticated) {
+        router.push("/notepad");
+        return null;
+      }
 
     return (
 

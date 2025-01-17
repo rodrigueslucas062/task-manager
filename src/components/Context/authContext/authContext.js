@@ -1,6 +1,6 @@
 import { auth } from "@/utils/firebase";
 import React, { createContext, useState, useContext, useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword, signOut,  } from "firebase/auth";
 
 const AuthContext = createContext();
 
@@ -28,6 +28,22 @@ export const AuthProvider = ({ children }) => {
     }
     setLoading(false);
   }
+
+  const login = async (email, password) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.error(error.message);  // Gerencie o erro conforme necessário
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error(error.message);  // Gerencie o erro conforme necessário
+    }
+  };
 
   const value = {
     isAuthenticated,

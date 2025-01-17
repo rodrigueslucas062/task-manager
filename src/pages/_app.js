@@ -1,3 +1,4 @@
+import { AuthProvider } from "@/components/Context/authContext/authContext";
 import Navbar from "@/components/Navbar/Navbar";
 import SEO from "@/components/SEO";
 import "@/styles/globals.css";
@@ -36,7 +37,9 @@ export default function App({ Component, pageProps }) {
       <SEO />
       <Toaster />
       <Navbar />
-      <Component {...pageProps} />
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
       <svg
         ref={svgRef}
         xmlns="http://www.w3.org/2000/svg"
