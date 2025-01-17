@@ -1,4 +1,4 @@
-import Tasks from "./Tasks/ToDo";
+import Tasks from "./ToDo";
 
 const Daily = () => {
     return (

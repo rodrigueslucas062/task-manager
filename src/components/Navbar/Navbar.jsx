@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { ChalkboardSimple, Flask, Kanban, ListChecks, Notepad } from "phosphor-react";
-import { DialogModal } from '../Dialog';
+import { DialogModal } from '../DialogModal';
 import { NavButtons } from './NavButtons';
 
 const Navbar = () => {

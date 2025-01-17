@@ -3,12 +3,10 @@ import { placeholders, questions } from "@/utils/placeholders";
 import { handleDone, handleRemove } from "@/utils/utils";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 import { CaretRight, DotsThreeOutline, List, Plus, Trash, X } from "phosphor-react";
 
 const TaskItem = ({ index }) => {
     const [taskText, setTaskText] = useLocalStorage(`taskText_${index}`, '')
-    const shadowStyle = { boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.75)" };
     const isFirstInput = index === 0
     const [randomPlaceholder, setRandomPlaceholder] = useState('');
     const [showButton, setShowButton] = useState(false)
@@ -33,7 +31,7 @@ const TaskItem = ({ index }) => {
 
     return (
         <Dialog.Root index={index}>
-            <div className="rounded-lg inline-block m-1 max-md:px-2 p-3 w-full lg:w-1/3 relative bg-white border-4 border-zinc-900 text-zinc-900" style={shadowStyle}>
+            <div className="rounded-lg inline-block m-1 max-md:px-2 p-3 w-full lg:w-1/3 relative bg-white border-4 border-zinc-900 text-zinc-900 shadow-[8px_8px_0px_rgba(0,0,0,0.75)]">
                 <div className="flex items-center gap-2 lg:gap-4 justify-between group">
                     <div className="group-hover:visible cursor-grab bg-white hover:bg-gray-200 p-2 rounded-full">
                         <List size={18} />
@@ -115,13 +113,11 @@ const Tasks = () => {
                     {[...Array(inputsFilled)].map((_, index) => (
                         <TaskItem key={index} index={index} onAddNewInput={handleAddNewInput} />
                     ))}
-                    <div className="pb-4">
-                        <button className="flex gap-1 bg-sky-700 hover:bg-sky-800 text-white font-semibold py-1 px-3 rounded-3xl"
-                            onClick={handleAddNewInput}>
-                            <Plus />
-                            Adicionar Tarefa
-                        </button>
-                    </div>
+                    <button className="flex gap-1 bg-sky-700 hover:bg-sky-800 text-white font-semibold py-1 px-3 rounded-3xl"
+                        onClick={handleAddNewInput}>
+                        <Plus />
+                        Adicionar Tarefa
+                    </button>
                 </div>
             </section>
         </Dialog.Root>

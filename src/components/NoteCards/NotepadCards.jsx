@@ -42,7 +42,7 @@ const NotepadCards = () => {
 
     return (
         <section className="min-h-screen min-w-screen">
-            <div className="mx-auto max-w-6xl space-y-6 px-5">
+            <div className="mx-auto max-w-6xl space-y-6 px-5 pb-6">
                 <form className="w-full pt-32">
                     <div className="relative rounded-lg inline-block w-full bg-white border-4 border-zinc-900 text-zinc-900 shadow-[8px_8px_0px_rgba(0,0,0,0.75)]">
                         <input

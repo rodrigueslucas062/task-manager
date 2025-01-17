@@ -1,11 +1,5 @@
-import NotepadCards from "@/components/NoteCards";
+import NotepadCards from "@/components/NoteCards/NotepadCards";
 
 export default function NotePads() {
-  return (
-    <>
-      <div className="pb-6">
-        <NotepadCards />
-      </div>
-    </>
-  );
+  return <NotepadCards />;
 }

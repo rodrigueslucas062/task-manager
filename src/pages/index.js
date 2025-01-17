@@ -1,4 +1,4 @@
-import Tasks from "@/components/Tasks/ToDo";
+import Tasks from "@/components/ToDo";
 
 export default function Home() {
   return <Tasks />;
