@@ -1,5 +1,5 @@
-import Tasks from "@/components/ToDo";
+import Login from "@/components/Auth/login/Login";
 
 export default function Home() {
-  return <Tasks />;
+  return <Login />;
 }
