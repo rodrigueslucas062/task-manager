@@ -1,4 +1,3 @@
-import { url } from "@liveblocks/core";
 import { auth } from "../../../utils/firebase";
 import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword } from "firebase/auth";
 
