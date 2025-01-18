@@ -4,11 +4,11 @@ import SEO from "@/components/SEO";
 import "@/styles/globals.css";
 import { useEffect, useRef } from "react";
 import { Toaster } from "sonner";
-import { useRouter } from "next/router"; // Importe o useRouter para verificar a rota atual
+import { useRouter } from "next/router";
 
 export default function App({ Component, pageProps }) {
   const svgRef = useRef(null);
-  const router = useRouter(); // Obtenha a rota atual
+  const router = useRouter();
 
   useEffect(() => {
     const handleResize = () => {
@@ -34,7 +34,6 @@ export default function App({ Component, pageProps }) {
     };
   }, []);
 
-  // Verifique se a rota é "/" ou "/register" e decida se deve usar o Layout
   const noLayoutRoutes = ['/', '/register'];
   const useLayout = !noLayoutRoutes.includes(router.pathname);
 
