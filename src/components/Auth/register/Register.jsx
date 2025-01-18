@@ -14,7 +14,7 @@ export default function Register() {
         event.preventDefault();
         try {
             await doCreateUserWithEmailAndPassword(email, password);
-            router.push("/dashboard")
+            router.push("/")
         } catch (err) {
             setError("Falha ao criar a conta. Tente novamente.");
         }
