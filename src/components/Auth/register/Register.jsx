@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { doCreateUserWithEmailAndPassword } from "../../../utils/firebase";
 import Link from "next/link";
+import { doCreateUserWithEmailAndPassword } from "@/components/Context/authContext/auth";
 
 export default function Register() {
     const [email, setEmail] = useState("");
