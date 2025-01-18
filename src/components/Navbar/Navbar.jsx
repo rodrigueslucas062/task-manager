@@ -3,10 +3,13 @@ import { useEffect, useState } from 'react';
 import { ChalkboardSimple, Flask, Kanban, ListChecks, Notepad } from "phosphor-react";
 import { DialogModal } from '../DialogModal';
 import { NavButtons } from './NavButtons';
+import { useAuth } from '../Context/authContext/authContext';
 
 const Navbar = () => {
     const router = useRouter();
     const [sectionName, setSectionName] = useState('');
+    const { logout } = useAuth();
+    console.log(useAuth());
 
     useEffect(() => {
         const route = router.pathname;
@@ -43,11 +46,12 @@ const Navbar = () => {
                                 <NavButtons path={'/'} icon={<ListChecks size={20} weight="duotone" />} text={'Tasks'} />
                                 <NavButtons path={'/notepad'} icon={<Notepad size={20} weight="duotone" />} text={'Anotações'} />
                                 <NavButtons path={'/jira'} icon={<Kanban size={20} weight="duotone" />} text={'Jira'} />
-                                <NavButtons path={'/whiteboard'} icon={<ChalkboardSimple size={20} weight="duotone" />} text={'White Board'} />
+                                <NavButtons path={'/jamboard'} icon={<ChalkboardSimple size={20} weight="duotone" />} text={'Jamboard'} />
                             </div>
                         </div>
                     </div>
                     <div className="flex text-zinc-800 font-semibold mt-auto pb-2 w-3/4 lg:w-3/5 mx-auto flex-col space-y-2 bottom-0">
+                        <button className="flex justify-center items-center w-full py-1.5 bg-lime-500 text-white rounded-lg font-semibold" onClick={() => logout()}>Logout</button>
                         <div className="flex justify-center">
                             <span className="text-sm">Made for </span>
                             <Flask size={20} weight="duotone" className="text-lime-500" />{" "}

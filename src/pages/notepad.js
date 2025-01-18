@@ -1,5 +1,8 @@
+import withAuth from "@/components/Context/authContext/withAuth";
 import NotepadCards from "@/components/NoteCards/NotepadCards";
 
-export default function NotePads() {
+function NotePads() {
   return <NotepadCards />;
 }
+
+export default withAuth(NotePads);

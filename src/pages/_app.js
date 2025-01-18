@@ -1,12 +1,14 @@
 import { AuthProvider } from "@/components/Context/authContext/authContext";
-import Navbar from "@/components/Navbar/Navbar";
+import Layout from "@/components/Layout/Layout";
 import SEO from "@/components/SEO";
 import "@/styles/globals.css";
 import { useEffect, useRef } from "react";
 import { Toaster } from "sonner";
+import { useRouter } from "next/router"; // Importe o useRouter para verificar a rota atual
 
 export default function App({ Component, pageProps }) {
   const svgRef = useRef(null);
+  const router = useRouter(); // Obtenha a rota atual
 
   useEffect(() => {
     const handleResize = () => {
@@ -32,14 +34,21 @@ export default function App({ Component, pageProps }) {
     };
   }, []);
 
+  // Verifique se a rota é "/" ou "/register" e decida se deve usar o Layout
+  const noLayoutRoutes = ['/', '/register'];
+  const useLayout = !noLayoutRoutes.includes(router.pathname);
+
   return (
-    <>
+    <AuthProvider>
       <SEO />
       <Toaster />
-      <Navbar />
-      <AuthProvider>
+      {useLayout ? (
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      ) : (
         <Component {...pageProps} />
-      </AuthProvider>
+      )}
       <svg
         ref={svgRef}
         xmlns="http://www.w3.org/2000/svg"
@@ -109,6 +118,6 @@ export default function App({ Component, pageProps }) {
           fill="url(#selector-zigzag-bg)"
         />
       </svg>
-    </>
+    </AuthProvider>
   );
 }

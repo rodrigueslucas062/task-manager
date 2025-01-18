@@ -1,6 +1,7 @@
 import { auth } from "@/utils/firebase";
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut,  } from "firebase/auth";
+import { useRouter } from "next/router";
 
 const AuthContext = createContext();
 
@@ -12,6 +13,7 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, initializeUser);
@@ -33,15 +35,16 @@ export const AuthProvider = ({ children }) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
-      console.error(error.message);  // Gerencie o erro conforme necessário
+      console.error(error.message);
     }
   };
 
   const logout = async () => {
     try {
       await signOut(auth);
+      router.push('/');
     } catch (error) {
-      console.error(error.message);  // Gerencie o erro conforme necessário
+      console.error(error.message);
     }
   };
 

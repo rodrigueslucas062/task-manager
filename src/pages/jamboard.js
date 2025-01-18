@@ -1,5 +1,8 @@
+import withAuth from "@/components/Context/authContext/withAuth";
 import Whiteboard from "@/components/Jamboard/Jamboard";
 
-export default function WhiteboardPage() {
+function WhiteboardPage() {
   return <Whiteboard />;
 }
+
+export default withAuth(WhiteboardPage);

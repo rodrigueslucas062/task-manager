@@ -1,5 +1,7 @@
 import Jira from "@/components/Jira";
 
-export default function JiraPage() {
+function JiraPage() {
   return <Jira />;
 }
+
+export default withAuth(JiraPage);
