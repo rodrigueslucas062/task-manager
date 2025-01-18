@@ -48,3 +48,40 @@ body {
     text-wrap: balance;
   }
 }
+
+/* Adicione esse CSS no seu arquivo de estilos */
+@keyframes bounce-fast {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes bounce-medium {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes bounce-slow {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
+  100% { transform: translateY(0); }
+}
+
+/* Definindo as animações */
+.animated {
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.bounce-fast {
+  animation: bounce-fast 1s infinite;
+}
+
+.bounce-medium {
+  animation: bounce-medium 2s infinite;
+}
+
+.bounce-slow {
+  animation: bounce-slow 3s infinite;
+}

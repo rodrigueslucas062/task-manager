@@ -1,104 +1,99 @@
 import { useState } from "react";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAuth } from "@/components/Context/authContext/authContext";
 import Link from "next/link";
+import { SignIn } from "phosphor-react";
 
 export default function Login() {
-    const {isAuthenticated, login} = useAuth();
+   const { isAuthenticated, login } = useAuth();
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [isSignIn, setIsSignIn] = useState(false);
-    const [error, setError] = useState("");
-    const router = useRouter();
+   const [email, setEmail] = useState("");
+   const [password, setPassword] = useState("");
+   const [isSignIn, setIsSignIn] = useState(false);
+   const [error, setError] = useState("");
+   const router = useRouter();
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        if (!isSignIn) {
-          setIsSignIn(true);
-          try {
+   const handleSubmit = async (event) => {
+      event.preventDefault();
+      if (!isSignIn) {
+         setIsSignIn(true);
+         try {
             await login(email, password);
             router.push("/notepad");
-          } catch (err) {
+         } catch (err) {
             setError("Failed to sign in. Please check your credentials.");
-          }
-        }
-      };
-    
-      if (isAuthenticated) {
-        router.push("/notepad");
-        return null;
+         }
       }
+   };
 
-    return (
+   if (isAuthenticated) {
+      router.push("/notepad");
+      return null;
+   }
 
-        <div>
-            {isAuthenticated && router.push("/notepad") }
-            <section className="bg-gray-50 dark:bg-gray-900">
-                <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-                    <Link href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                        <Image width={200} height={200} className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
-                        Flowbite
-                    </Link>
-                    <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                        <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                                Sign in to your account
-                            </h1>
-                            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
-                                <div>
-                                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        id="email"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="name@company.com"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        required
-                                    />
-                                </div>
-                                <div>
-                                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        id="password"
-                                        placeholder="••••••••"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        required
-                                    />
-                                </div>
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-start">
-                                        <div className="flex items-center h-5">
-                                            <input id="remember" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" />
-                                        </div>
-                                        <div className="ml-3 text-sm">
-                                            <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">Remember me</label>
-                                        </div>
-                                    </div>
-                                    <Link href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</Link>
-                                </div>
-                                {error && <p className="text-red-500 text-sm">{error}</p>}
-                                <button
-                                    type="submit"
-                                    className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                >
-                                    Sign in
-                                </button>
-                                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                    Don’t have an account yet? <Link href="/register" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>
-                                </p>
-                            </form>
+   return (
+      <div>
+         {isAuthenticated && router.push("/notepad")}
+         <section className="w-full h-screen flex justify-center items-center bg-gradient-to-r from-zinc-950 to-zinc-800">
+            <div className="relative">
+               <div className="absolute top-[-50px] right-[-50px] w-24 h-24 bg-purple-400 bg-opacity-10 backdrop-blur-sm shadow-lg border border-white border-opacity-20 rounded-lg animated bounce-slow"></div>
+               <div className="absolute top-[150px] left-[-100px] w-[120px] h-[200px] bg-sky-600 bg-opacity-10 backdrop-blur-sm shadow-lg border border-white border-opacity-20 rounded-lg animated bounce-fast"></div>
+               <div className="absolute bottom-[-80px] right-[-50px] w-[70px] h-[70px] bg-sky-600 bg-opacity-10 backdrop-blur-sm shadow-lg border border-white border-opacity-20 rounded-lg animated bounce-medium"></div>
+               <div className="absolute bottom-[-60px] w-[50px] h-[50px] bg-purple-400 bg-opacity-10 backdrop-blur-sm shadow-lg border border-white border-opacity-20 rounded-lg rotate-[10deg] animated bounce-slow"></div>
+               <div className="absolute top-[-60px] left-[150px] w-[60px] h-[60px] bg-zinc-700 bg-opacity-10 backdrop-blur-sm shadow-lg border border-white border-opacity-20 rounded-lg animated bounce-medium"></div>
+
+               <div className="relative w-full lg:w-[500px] min-h-[500px] flex justify-center items-center bg-white bg-opacity-10 backdrop-blur-sm shadow-lg border border-white border-opacity-50 rounded-lg">
+                  <div className="relative w-full h-full p-10">
+                     <div className="space-y-2">
+                        <h2 className="text-white text-2xl font-semibold tracking-wider">
+                           Synapse
+                        </h2>
+                        <div className="left-0 bottom-[-10px] w-28 h-1 bg-purple-400"></div>
+                     </div>
+                     <form action="#" onSubmit={handleSubmit}>
+                        <div className="w-full mt-5">
+                           <input
+                              type="email"
+                              name="email"
+                              id="email"
+                              placeholder="Email"
+                              className="w-full bg-white bg-opacity-20 px-5 py-2.5 text-white text-[15px] tracking-[1px] rounded-lg border border-white border-opacity-50 shadow-[0_5px_15px_rgba(0,0,0,0.05)] focus:outline-none"
+                              value={email}
+                              onChange={(event) => setEmail(event.target.value)}
+                              required
+                           />
                         </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    );
+                        <div className="w-full mt-5">
+                           <input
+                              type="password"
+                              name="password"
+                              id="password"
+                              placeholder="Senha"
+                              className="w-full bg-white bg-opacity-20 px-5 py-2.5 text-white text-[15px] tracking-[1px] rounded-lg border border-white border-opacity-50 shadow-[0_5px_15px_rgba(0,0,0,0.05)] focus:outline-none"
+                              value={password}
+                              onChange={(event) => setPassword(event.target.value)}
+                              required
+                           />
+                        </div>
+                        <div className="mt-10">
+                           <button type="submit" className="flex items-center justify-center gap-3 w-full px-5 py-2 rounded-lg font-semibold bg-white text-black mb-5" >
+                              Login
+                              <SignIn size={24} weight="duotone" />
+                           </button>
+                        </div>
+                        <p className="text-white mt-sm">
+                           Esqueceu a senha? <Link href="#" className="font-semibold text-white">Clique aqui</Link>
+                        </p>
+                     </form>
+                     <div className="mt-20">
+                        <p className="text-white mt-sm">
+                           <Link href="/singup" className="font-semibold text-white">Sign up</Link>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+      </div>
+   );
 }
