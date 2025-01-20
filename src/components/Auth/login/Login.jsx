@@ -19,7 +19,7 @@ export default function Login() {
          setIsSignIn(true);
          try {
             await login(email, password);
-            router.push("/notepad");
+            router.push("/task");
          } catch (err) {
             setError("Failed to sign in. Please check your credentials.");
          }
@@ -27,13 +27,13 @@ export default function Login() {
    };
 
    if (isAuthenticated) {
-      router.push("/notepad");
+      router.push("/task");
       return null;
    }
 
    return (
       <div>
-         {isAuthenticated && router.push("/notepad")}
+         {isAuthenticated && router.push("/task")}
          <section className="w-full h-screen flex justify-center items-center bg-gradient-to-r from-zinc-950 to-zinc-800">
             <div className="relative">
                <div className="absolute top-[-50px] right-[-30px] lg:right-[-50px] w-24 h-24 bg-purple-400 bg-opacity-10 backdrop-blur-sm shadow-lg border border-white border-opacity-20 rounded-lg animated bounce-slow"></div>
@@ -74,6 +74,7 @@ export default function Login() {
                               onChange={(event) => setPassword(event.target.value)}
                               required
                            />
+                           <span>{error}</span>
                         </div>
                         <div className="mt-10">
                            <button type="submit" className="flex items-center justify-center gap-3 w-full px-5 py-2 rounded-lg font-semibold bg-white text-black mb-5" >
