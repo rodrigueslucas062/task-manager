@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import NewNoteCards from "./NewNoteCards";
 import NoteCards from "./NoteCards";
 import { MagnifyingGlass } from "phosphor-react";
-import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore";
-import { db } from "@/utils/firebase";
+import { collection, addDoc, getDocs, deleteDoc, doc, query, where } from "firebase/firestore";
+import { auth, db } from "@/utils/firebase";
 
 const NotepadCards = () => {
     const [search, setSearch] = useState('');
@@ -11,7 +11,11 @@ const NotepadCards = () => {
 
     useEffect(() => {
         const fetchNotes = async () => {
-            const querySnapshot = await getDocs(collection(db, "notes"));
+            const notesQuery = query(
+                collection(db, "notes"),
+                where("userId", "==", auth.currentUser.uid)  // Filtra as notas pelo userId
+            );
+            const querySnapshot = await getDocs(notesQuery);
             const notesData = querySnapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data(),
@@ -19,18 +23,20 @@ const NotepadCards = () => {
             setNotes(notesData);
         };
 
-        fetchNotes();
+        if (auth.currentUser) {
+            fetchNotes();
+        }
     }, []);
 
     async function onNoteCreated(content) {
         if (!content.trim()) return;
-    
+
         const newNote = {
             date: new Date().toISOString(),
             content: content.trim(),
             userId: auth.currentUser.uid,
         };
-    
+
         try {
             const docRef = await addDoc(collection(db, "notes"), newNote);
             setNotes(prevNotes => [{ id: docRef.id, ...newNote }, ...prevNotes]);

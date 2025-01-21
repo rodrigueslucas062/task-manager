@@ -19,7 +19,7 @@ export default function Login() {
          setIsSignIn(true);
          try {
             await login(email, password);
-            router.push("/task");
+            router.push("/tasks");
          } catch (err) {
             setError("Failed to sign in. Please check your credentials.");
          }
@@ -27,13 +27,13 @@ export default function Login() {
    };
 
    if (isAuthenticated) {
-      router.push("/task");
+      router.push("/tasks");
       return null;
    }
 
    return (
       <div>
-         {isAuthenticated && router.push("/task")}
+         {isAuthenticated && router.push("/tasks")}
          <section className="w-full h-screen flex justify-center items-center bg-gradient-to-r from-zinc-950 to-zinc-800">
             <div className="relative">
                <div className="absolute top-[-50px] right-[-30px] lg:right-[-50px] w-24 h-24 bg-purple-400 bg-opacity-10 backdrop-blur-sm shadow-lg border border-white border-opacity-20 rounded-lg animated bounce-slow"></div>

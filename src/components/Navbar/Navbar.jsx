@@ -43,7 +43,7 @@ const Navbar = () => {
                                 <span className="font-semibold text-zinc-900 text-lg">{sectionName}</span>
                             </div>
                             <div className="flex flex-col space-y-4 lg:space-y-1.5 font-semibold">
-                                <NavButtons path={'/task'} icon={<ListChecks size={20} weight="duotone" />} text={'Tasks'} />
+                                <NavButtons path={'/tasks'} icon={<ListChecks size={20} weight="duotone" />} text={'Tasks'} />
                                 <NavButtons path={'/notepad'} icon={<Notepad size={20} weight="duotone" />} text={'Anotações'} />
                                 <NavButtons path={'/jira'} icon={<Kanban size={20} weight="duotone" />} text={'Jira'} />
                                 <NavButtons path={'/jamboard'} icon={<ChalkboardSimple size={20} weight="duotone" />} text={'Jamboard'} />
