@@ -24,12 +24,13 @@ const NotepadCards = () => {
 
     async function onNoteCreated(content) {
         if (!content.trim()) return;
-
+    
         const newNote = {
             date: new Date().toISOString(),
             content: content.trim(),
+            userId: auth.currentUser.uid,
         };
-
+    
         try {
             const docRef = await addDoc(collection(db, "notes"), newNote);
             setNotes(prevNotes => [{ id: docRef.id, ...newNote }, ...prevNotes]);
