@@ -1,3 +1,4 @@
+import { auth } from "@/utils/firebase";
 import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword } from "firebase/auth";
 
 export const doCreateUserWithEmailAndPassword = async (email, password) => {

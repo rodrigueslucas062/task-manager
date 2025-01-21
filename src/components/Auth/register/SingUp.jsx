@@ -10,7 +10,7 @@ export default function Signup() {
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
     const [error, setError] = useState("");
     const router = useRouter();
-
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -23,9 +23,19 @@ export default function Signup() {
             await doCreateUserWithEmailAndPassword(email, password);
             router.push("/");
         } catch (err) {
-            setError("Falha ao criar a conta. Tente novamente.");
+            console.error("Erro ao criar usuário:", err);
+            if (err.code === 'auth/weak-password') {
+                setError("A senha é muito fraca. Use pelo menos 6 caracteres.");
+            } else if (err.code === 'auth/email-already-in-use') {
+                setError("Este email já está em uso.");
+            } else if (err.code === 'auth/invalid-email'){
+                setError("Email inválido")
+            }
+            else{
+                setError("Falha ao criar a conta: " + err.message);
+            }
         }
-    };
+    }
 
     return (
         <section className="w-full h-screen flex justify-center items-center bg-gradient-to-r from-zinc-950 to-zinc-800">
