@@ -2,43 +2,57 @@ import { useEffect, useState } from "react";
 import NewNoteCards from "./NewNoteCards";
 import NoteCards from "./NoteCards";
 import { MagnifyingGlass } from "phosphor-react";
+import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { db } from "@/utils/firebase";
 
 const NotepadCards = () => {
-    const [search, setSearch] = useState('')
-    const [notes, setNotes] = useState([])
+    const [search, setSearch] = useState('');
+    const [notes, setNotes] = useState([]);
 
     useEffect(() => {
-        const notesOnStorage = localStorage.getItem('notes')
-        if (notesOnStorage) {
-            setNotes(JSON.parse(notesOnStorage))
-        }
-    }, [])
+        const fetchNotes = async () => {
+            const querySnapshot = await getDocs(collection(db, "notes"));
+            const notesData = querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+            setNotes(notesData);
+        };
 
-    function onNoteCreated(content) {
+        fetchNotes();
+    }, []);
+
+    async function onNoteCreated(content) {
         if (!content.trim()) return;
 
         const newNote = {
-            id: crypto.randomUUID(),
             date: new Date().toISOString(),
             content: content.trim(),
         };
 
-        const updatedNotes = [newNote, ...notes];
-        setNotes(updatedNotes);
-        localStorage.setItem('notes', JSON.stringify(updatedNotes));
+        try {
+            const docRef = await addDoc(collection(db, "notes"), newNote);
+            setNotes(prevNotes => [{ id: docRef.id, ...newNote }, ...prevNotes]);
+        } catch (e) {
+            console.error("Erro ao adicionar nota: ", e);
+        }
     }
 
-    const handleSearch = (event) => setSearch(event.target.value);
-
-    function handleDeleteNote(id) {
-        const notesArray = notes.filter(note => note.id !== id);
-        setNotes(notesArray);
-        localStorage.setItem('notes', JSON.stringify(notesArray));
-    }
+    const handleDeleteNote = async (id) => {
+        try {
+            const noteDoc = doc(db, "notes", id);
+            await deleteDoc(noteDoc);
+            setNotes(notes.filter(note => note.id !== id));
+        } catch (e) {
+            console.error("Erro ao excluir nota: ", e);
+        }
+    };
 
     const filteredNotes = notes.filter(note =>
         note.content.toLocaleLowerCase().includes(search.toLocaleLowerCase())
     );
+
+    const handleSearch = (event) => setSearch(event.target.value);
 
     return (
         <section className="min-h-screen min-w-screen">
@@ -56,9 +70,13 @@ const NotepadCards = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[250px]">
                     <NewNoteCards onNoteCreated={onNoteCreated} />
 
-                    {filteredNotes.map(note => {
-                        return <NoteCards key={note.id} date={note.date} content={note.content} handleDeleteNote={() => handleDeleteNote(note.id)} />
-                    })}
+                    {filteredNotes.map(note => (
+                        <NoteCards
+                            key={note.id}
+                            date={note.date}
+                            content={note.content}
+                            handleDeleteNote={() => handleDeleteNote(note.id)} />
+                    ))}
                 </div>
             </div>
         </section>
