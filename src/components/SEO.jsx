@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 const SEO = ({ title, description, keywords }) => {
     const router = useRouter();
 
-    const pageTitle = title || 'Task Tree';
+    const pageTitle = title || 'Synapse';
     const pageDescription = description || 'ToDo list';
     const defaultKeywords = [ 'To-do list' ];
     const pageKeywords = keywords || defaultKeywords.join(', ');
