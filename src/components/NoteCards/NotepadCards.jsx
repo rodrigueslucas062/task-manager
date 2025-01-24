@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import NewNoteCards from "./NewNoteCards";
 import NoteCards from "./NoteCards";
 import { MagnifyingGlass } from "phosphor-react";
@@ -8,12 +8,13 @@ import { auth, db } from "@/utils/firebase";
 const NotepadCards = () => {
     const [search, setSearch] = useState('');
     const [notes, setNotes] = useState([]);
+    const user = auth.currentUser;
 
     useEffect(() => {
         const fetchNotes = async () => {
             const notesQuery = query(
-                collection(db, "notes"),
-                where("userId", "==", auth.currentUser.uid)  // Filtra as notas pelo userId
+                collection(db, `${user.uid}`),
+                where("userId", "==", auth.currentUser.uid)
             );
             const querySnapshot = await getDocs(notesQuery);
             const notesData = querySnapshot.docs.map(doc => ({
@@ -26,7 +27,7 @@ const NotepadCards = () => {
         if (auth.currentUser) {
             fetchNotes();
         }
-    }, []);
+    }, [user.uid]);
 
     async function onNoteCreated(content) {
         if (!content.trim()) return;
@@ -38,7 +39,7 @@ const NotepadCards = () => {
         };
 
         try {
-            const docRef = await addDoc(collection(db, "notes"), newNote);
+            const docRef = await addDoc(collection(db, `${user.uid}`), newNote);
             setNotes(prevNotes => [{ id: docRef.id, ...newNote }, ...prevNotes]);
         } catch (e) {
             console.error("Erro ao adicionar nota: ", e);
@@ -47,7 +48,7 @@ const NotepadCards = () => {
 
     const handleDeleteNote = async (id) => {
         try {
-            const noteDoc = doc(db, "notes", id);
+            const noteDoc = doc(db, `${user.uid}`, id);
             await deleteDoc(noteDoc);
             setNotes(notes.filter(note => note.id !== id));
         } catch (e) {
