@@ -12,11 +12,11 @@ const NotepadCards = () => {
 
     useEffect(() => {
         const fetchNotes = async () => {
-            const notesQuery = query(
-                collection(db, `${user.uid}`),
-                where("userId", "==", auth.currentUser.uid)
-            );
+            if (!user?.uid) return;
+            const notesRef = collection(db, `users/${user.uid}/notas`);
+            const notesQuery = query(notesRef);
             const querySnapshot = await getDocs(notesQuery);
+
             const notesData = querySnapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data(),
@@ -24,40 +24,40 @@ const NotepadCards = () => {
             setNotes(notesData);
         };
 
-        if (auth.currentUser) {
-            fetchNotes();
-        }
-    }, [user.uid]);
+        fetchNotes();
+    }, [user?.uid]);
 
-    async function onNoteCreated(content) {
-        if (!content.trim()) return;
+    const onNoteCreated = async (content) => {
+        if (!content.trim() || !user?.uid) return;
 
         const newNote = {
             date: new Date().toISOString(),
             content: content.trim(),
-            userId: auth.currentUser.uid,
+            userId: user.uid,
         };
 
         try {
-            const docRef = await addDoc(collection(db, `${user.uid}`), newNote);
+            const docRef = await addDoc(collection(db, `users/${user.uid}/notas`), newNote);
             setNotes(prevNotes => [{ id: docRef.id, ...newNote }, ...prevNotes]);
         } catch (e) {
             console.error("Erro ao adicionar nota: ", e);
         }
-    }
+    };
 
     const handleDeleteNote = async (id) => {
+        if (!user?.uid) return;
+
         try {
-            const noteDoc = doc(db, `${user.uid}`, id);
+            const noteDoc = doc(db, `users/${user.uid}/notas`, id);
             await deleteDoc(noteDoc);
-            setNotes(notes.filter(note => note.id !== id));
+            setNotes(prevNotes => prevNotes.filter(note => note.id !== id));
         } catch (e) {
             console.error("Erro ao excluir nota: ", e);
         }
     };
 
     const filteredNotes = notes.filter(note =>
-        note.content.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+        note.content.toLowerCase().includes(search.toLowerCase())
     );
 
     const handleSearch = (event) => setSearch(event.target.value);
@@ -71,7 +71,8 @@ const NotepadCards = () => {
                             type="text"
                             placeholder="Busque em suas notas..."
                             className="block w-full focus:outline-none rounded-xl border-0 py-3 text-gray-900 bg-white placeholder:text-gray-400 pl-10"
-                            onChange={handleSearch} />
+                            onChange={handleSearch}
+                        />
                         <MagnifyingGlass size={20} weight="duotone" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                     </div>
                 </form>
@@ -83,7 +84,8 @@ const NotepadCards = () => {
                             key={note.id}
                             date={note.date}
                             content={note.content}
-                            handleDeleteNote={() => handleDeleteNote(note.id)} />
+                            handleDeleteNote={() => handleDeleteNote(note.id)}
+                        />
                     ))}
                 </div>
             </div>
