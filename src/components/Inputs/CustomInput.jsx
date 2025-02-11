@@ -9,7 +9,7 @@ export const CustomInput = ({ type, name, id, placeholder, value, onChange, icon
         name={name}
         id={id}
         placeholder={placeholder}
-        className="w-full bg-zinc-900 bg-opacity-20 px-10 py-2.5 text-white text-sm tracking-[1px] rounded-lg shadow-[0_5px_15px_rgba(0,0,0,0.05)] focus:outline-none"
+        className="w-full bg-zinc-950 ring-1 ring-zinc-800 bg-opacity-20 px-10 py-2.5 text-white text-sm tracking-[1px] rounded-lg focus:outline-none"
         value={value}
         onChange={onChange}
       />
