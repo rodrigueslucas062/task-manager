@@ -3,13 +3,6 @@ import React from "react";
 import { useAuth } from "../Context/authContext/authContext";
 
 export default function AuthLayout({ children }) {
-    const router = useRouter();
-    const { isAuthenticated, login } = useAuth();
-
-    if (isAuthenticated) {
-        router.push("/tasks");
-        return null;
-    }
 
     return (
         <section className="bg-zinc-800">
@@ -20,7 +13,7 @@ export default function AuthLayout({ children }) {
             </div>
             <div className="md:w-1/2 w-full h-full absolute top-0 right-0">
                 <div className="flex px-10 items-center justify-center h-full">
-                    {React.cloneElement(children, { login })}
+                    {children}
                 </div>
             </div>
         </section>

@@ -4,14 +4,22 @@ import { Envelope, Eye, EyeSlash, Lock, SignIn } from "phosphor-react";
 import AuthLayout from "@/components/Layout/AuthLayout";
 import { CustomInput } from "@/components/Inputs/CustomInput";
 import { useRouter } from "next/router";
+import { Spinner } from "@radix-ui/themes";
+import { useAuth } from "@/components";
 
-export default function Login({ login }) {
+export default function Login() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSignIn, setIsSignIn] = useState(false);
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const { isAuthenticated, login } = useAuth();
+
+  if (isAuthenticated) {
+    router.push("/tasks");
+    return null;
+  }
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -23,17 +31,18 @@ export default function Login({ login }) {
       setIsSignIn(true);
       try {
         await login(email, password);
-        router.push("/tasks");
       } catch (err) {
         setError("Failed to sign in. Please check your credentials.");
       } finally {
         setIsSignIn(false);
+        router.push("/tasks");
       }
     }
   };
 
   return (
     <AuthLayout>
+      {isAuthenticated && router.push("/tasks")}
       <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-md bg-zinc-900 p-10 rounded-lg">
         <div className="space-y-2">
           <h2 className="text-white text-2xl font-semibold tracking-wider">
@@ -70,9 +79,17 @@ export default function Login({ login }) {
             required />
         </div>
         <div className="mt-10">
-          <button type="submit" className="flex items-center justify-between gap-3 w-full px-5 py-2 rounded-lg font-semibold bg-white text-black mb-5">
+          <button
+            type="submit"
+            disabled={isSignIn}
+            className={`flex items-center justify-between gap-3 w-full px-5 py-2 rounded-lg font-semibold bg-white text-black mb-5 ${isSignIn ? 'opacity-50 cursor-not-allowed' : ''}`}
+          >
             Login
-            <SignIn size={24} weight="duotone" />
+            {isSignIn ? (
+              <Spinner size="2" />
+            ) : (
+              <SignIn size={24} weight="duotone" />
+            )}
           </button>
         </div>
         {error && <p className="text-red-500">{error}</p>}
