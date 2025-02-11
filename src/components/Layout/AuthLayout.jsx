@@ -1,16 +1,26 @@
+import { useRouter } from "next/router";
 import React from "react";
+import { useAuth } from "../Context/authContext/authContext";
 
 export default function AuthLayout({ children }) {
+    const router = useRouter();
+    const { isAuthenticated, login } = useAuth();
+
+    if (isAuthenticated) {
+        router.push("/tasks");
+        return null;
+    }
+
     return (
-        <section className="w-full h-screen flex justify-center items-center bg-gradient-to-r from-zinc-950 to-zinc-900">
-            <div className="relative">
-                <div className="absolute top-[-50px] right-[-15px] lg:right-[-50px] w-24 h-24 bg-purple-400 bg-opacity-10 backdrop-blur-sm shadow-lg border border-white border-opacity-20 rounded-lg animated bounce-slow"></div>
-                <div className="absolute top-[150px] left-[-90px] lg:left-[-100px] w-[120px] h-[200px] bg-sky-600 bg-opacity-10 backdrop-blur-sm shadow-lg border border-white border-opacity-20 rounded-lg animated bounce-fast"></div>
-                <div className="absolute bottom-[-80px] right-[-10px] lg:right-[-50px] w-[70px] h-[70px] bg-sky-600 bg-opacity-10 backdrop-blur-sm shadow-lg border border-white border-opacity-20 rounded-lg animated bounce-medium"></div>
-                <div className="absolute bottom-[-60px] w-[50px] h-[50px] bg-purple-400 bg-opacity-10 backdrop-blur-sm shadow-lg border border-white border-opacity-20 rounded-lg rotate-[10deg] animated bounce-slow"></div>
-                <div className="absolute top-[-60px] left-[110px] lg:left-[150px] w-[60px] h-[60px] bg-zinc-700 bg-opacity-10 backdrop-blur-sm shadow-lg border border-white border-opacity-20 rounded-lg animated bounce-medium"></div>
-                <div className="relative w-full lg:w-[500px] min-h-[500px] flex justify-center items-center bg-white bg-opacity-10 backdrop-blur-sm shadow-lg border border-white border-opacity-50 rounded-lg">
-                    {children}
+        <section className="bg-zinc-800">
+            <div className="max-md:hidden bg-violet-900 md:w-1/2 h-full absolute top-0 left-0 rounded-r-2xl">
+                <div className="grid place-items-center h-screen">
+                    <h1>Logo Synapse</h1>
+                </div>
+            </div>
+            <div className="md:w-1/2 w-full h-full absolute top-0 right-0">
+                <div className="flex px-10 items-center justify-center h-full">
+                    {React.cloneElement(children, { login })}
                 </div>
             </div>
         </section>
