@@ -1,8 +1,7 @@
-import withAuth from "@/components/Context/authContext/withAuth";
-import Whiteboard from "@/components/Jamboard/Jamboard";
+import { Jamboard, withAuth } from "@/components";
 
-function WhiteboardPage() {
-  return <Whiteboard />;
+function JamboardPage() {
+  return <Jamboard />;
 }
 
-export default withAuth(WhiteboardPage);
+export default withAuth(JamboardPage);

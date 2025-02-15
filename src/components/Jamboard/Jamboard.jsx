@@ -8,7 +8,7 @@ import { handleAddCircleNode, handleAddNode, handleAddPostIt, handleAddStickyNot
 import { DefaultEdges } from "./edges/DefaultEdges";
 import { CaretRight } from "phosphor-react";
 
-export default function Whiteboard() {
+export function Jamboard() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [activeTool, setActiveTool] = useState("pointer")
