@@ -1,5 +1,4 @@
-import withAuth from "@/components/Context/authContext/withAuth";
-import Tasks from "@/components/ToDo";
+import { Tasks, withAuth } from "@/components";
 
 function TaskList() {
   return <Tasks />;
