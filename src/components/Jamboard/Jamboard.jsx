@@ -1,14 +1,14 @@
-import { addEdge, Background, ConnectionMode, Controls, MiniMap, ReactFlow, SelectionMode, useEdgesState, useNodesState } from "@xyflow/react";
+import { addEdge, Background, ConnectionMode, Controls, MiniMap, ReactFlow, useEdgesState, useNodesState } from "@xyflow/react";
 import '@xyflow/react/dist/style.css';
-import { CircleNode, PostItNode, SquareNode, TextNode } from "./nodes/nodes";
+import { CircleNode, PostItNode, SquareNode } from "./nodes/nodes";
 import { useCallback, useMemo, useState } from "react";
 import * as ContextMenu from "@radix-ui/react-context-menu";
-import Toolbox from "./Toolbox";
-import { handleAddCircleNode, handleAddNode, handleAddPostIt, handleAddStickyNotesNode, handleAddTextNode, handleDeleteNode } from "@/utils/utils";
 import { DefaultEdges } from "./edges/DefaultEdges";
 import { CaretRight } from "phosphor-react";
+import { handleAddCircleNode, handleAddNode, handleAddStickyNotesNode, handleDeleteNode } from "@/utils";
+import { Toolbox } from "@/components";
 
-export function Jamboard() {
+export const Jamboard  = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [activeTool, setActiveTool] = useState("pointer")
