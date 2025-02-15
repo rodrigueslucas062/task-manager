@@ -1,4 +1,4 @@
-import CreateAccount from "@/components/Auth/register/SignUp";
+import { CreateAccount } from "@/components";
 
 export default function Signup() {
   return <CreateAccount />;
