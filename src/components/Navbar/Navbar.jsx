@@ -1,11 +1,9 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { ChalkboardSimple, Flask, Kanban, ListChecks, Notepad } from "phosphor-react";
-import { DialogModal } from '../DialogModal';
-import { NavButtons } from './NavButtons';
-import { useAuth } from '../Context/authContext/authContext';
+import { DialogModal, useAuth, NavButtons } from '@/components';
 
-const Navbar = () => {
+export const Navbar = () => {
   const router = useRouter();
   const [sectionName, setSectionName] = useState('');
   const { logout } = useAuth();
@@ -63,5 +61,3 @@ const Navbar = () => {
     </nav>
   );
 };
-
-export default Navbar;
