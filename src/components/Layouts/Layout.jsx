@@ -1,4 +1,4 @@
-import Navbar from "../Navbar/Navbar";
+import { Navbar } from "@/components";
 import { BackgroundAnimated } from "./BackgroundAnimated";
 
 export const Layout = ({ children }) => {
