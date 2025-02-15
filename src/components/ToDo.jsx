@@ -1,4 +1,4 @@
-import { placeholders, questions } from "@/utils/placeholders";
+import { questions } from "@/utils/placeholders";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useCallback, useEffect, useState } from "react";
 import { CaretRight, DotsThreeOutline, List, Plus, Trash, X } from "phosphor-react";
@@ -94,7 +94,7 @@ const TaskItem = ({ task, onTaskUpdated, onTaskRemoved }) => {
 	);
 };
 
-const Tasks = () => {
+export const Tasks = () => {
 	const [tasks, setTasks] = useState([]);
 	const [randomQuestion, setRandomQuestion] = useState("");
 	const user = auth.currentUser;
@@ -182,5 +182,3 @@ const Tasks = () => {
 		</section>
 	);
 };
-
-export default Tasks;
