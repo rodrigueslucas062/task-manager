@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useAuth } from "./authContext";
 
-export default function withAuth(Component) {
+export function withAuth(Component) {
   return function ProtectedRoute(props) {
     const { isAuthenticated, loading } = useAuth();
     const router = useRouter();
