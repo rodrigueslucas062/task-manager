@@ -1,9 +1,8 @@
-import { use, useEffect, useState } from "react";
-import NewNoteCards from "./NewNoteCards";
-import NoteCards from "./NoteCards";
+import { useEffect, useState } from "react";
 import { MagnifyingGlass } from "phosphor-react";
 import { collection, addDoc, getDocs, deleteDoc, doc, query, where } from "firebase/firestore";
 import { auth, db } from "@/utils/firebase";
+import { NewNoteCards, NoteCards } from "@/components";
 
 export const NotepadCards = () => {
   const [search, setSearch] = useState('');

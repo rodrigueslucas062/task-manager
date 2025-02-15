@@ -1,6 +1,6 @@
 import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { CardLayout } from "./CardLayout";
+import { CardLayout } from "@/components";
 
 const availableColors = [
   "bg-amber-200",
@@ -11,7 +11,7 @@ const availableColors = [
   "bg-cyan-200",
 ]
 
-const NoteCards = (NoteCardProps) => {
+export const NoteCards = (NoteCardProps) => {
   const randomColor =
     availableColors[Math.floor(Math.random() * availableColors.length)];
 
@@ -58,5 +58,3 @@ const NoteCards = (NoteCardProps) => {
       } />
   );
 };
-
-export default NoteCards;

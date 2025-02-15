@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { toast } from "sonner";
-import { CardLayout } from "./CardLayout";
+import { CardLayout } from "@/components";
 
-const NewNoteCards = ({ onNoteCreated }) => {
+export const NewNoteCards = ({ onNoteCreated }) => {
   const [shouldShowOnBoarding, setShouldShowOnBoarding] = useState(true);
   const [content, setContent] = useState("");
   const [isRecording, setIsRecording] = useState(false);
@@ -136,5 +136,3 @@ const NewNoteCards = ({ onNoteCreated }) => {
       } />
   );
 };
-
-export default NewNoteCards;
