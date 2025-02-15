@@ -1,9 +1,9 @@
 import { TooltipDemo } from '@/components/Tooltip';
-import { addCircleNode, addSquareNode, addTextSquareNode, handleAddCircleNode, handleAddPostIt } from '@/utils/utils';
+import { addSquareNode, handleAddCircleNode, handleAddPostIt } from '@/utils';
 import * as Toolbar from '@radix-ui/react-toolbar';
 import { HandGrabbing, NavigationArrow } from 'phosphor-react';
 
-export default function Toolbox({ setNodes, setActiveTool }) {
+export function Toolbox({ setNodes, setActiveTool }) {
   return (
     <Toolbar.Root
       className="fixed inset-x-0 mx-auto bottom-4 flex z-50 w-2/4 items-center border border-white rounded-md bg-zinc-900/10 backdrop-blur-sm px-3 pt-2 gap-2"
@@ -48,7 +48,7 @@ export default function Toolbox({ setNodes, setActiveTool }) {
         />
         <Toolbar.Button
           className="size-8 bg-blue-400 rounded-full group:transition-transform hover:-translate-y-1"
-          onClick={() => handleAddCircleNode({ setNodes })}
+          onClick={(event) => handleAddCircleNode(event, setNodes)}
         />
         <Toolbar.Button
           className="size-8 bg-red-400 rounded group:transition-transform hover:-translate-y-1"
