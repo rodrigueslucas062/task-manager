@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-const SEO = ({ title, description, keywords }) => {
+export const SEO = ({ title, description, keywords }) => {
   const router = useRouter();
 
   const pageTitle = title || 'Synapse';
@@ -27,5 +27,3 @@ const SEO = ({ title, description, keywords }) => {
     </Head>
   );
 };
-
-export default SEO;

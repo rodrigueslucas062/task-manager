@@ -1,7 +1,7 @@
 import Navbar from "../Navbar/Navbar";
 import { BackgroundAnimated } from "./BackgroundAnimated";
 
-const Layout = ({ children }) => {
+export const Layout = ({ children }) => {
   return (
     <div>
       <Navbar />
@@ -12,5 +12,3 @@ const Layout = ({ children }) => {
     </div>
   );
 };
-
-export default Layout;
