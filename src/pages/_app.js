@@ -1,9 +1,9 @@
-import { AuthProvider } from "@/components/Context/authContext/authContext";
-import Layout from "@/components/Layout/Layout";
-import SEO from "@/components/SEO";
 import "@/styles/globals.css";
+import "@radix-ui/themes/styles.css";
 import { Toaster } from "sonner";
 import { useRouter } from "next/router";
+import { Theme } from "@radix-ui/themes";
+import { AuthProvider, Layout, SEO } from "@/components";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -12,16 +12,18 @@ export default function App({ Component, pageProps }) {
   const useLayout = !noLayoutRoutes.includes(router.pathname);
 
   return (
-    <AuthProvider>
-      <SEO />
-      <Toaster />
-      {useLayout ? (
-        <Layout>
+    <Theme appearance="dark">
+      <AuthProvider>
+        <SEO />
+        <Toaster richColors position="bottom-right" />
+        {useLayout ? (
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        ) : (
           <Component {...pageProps} />
-        </Layout>
-      ) : (
-        <Component {...pageProps} />
-      )}
-    </AuthProvider>
+        )}
+      </AuthProvider>
+    </Theme>
   );
 }
