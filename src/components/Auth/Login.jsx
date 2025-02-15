@@ -1,14 +1,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Envelope, Eye, EyeSlash, Lock, SignIn } from "phosphor-react";
-import AuthLayout from "@/components/Layout/AuthLayout";
 import { CustomInput } from "@/components/Inputs/CustomInput";
 import { useRouter } from "next/router";
-import { useAuth } from "@/components";
 import { toast } from "sonner";
 import { Spinner } from "@radix-ui/themes";
+import { useAuth } from "../Context/authContext/authContext";
+import { AuthLayout } from "..";
 
-export default function Login() {
+export function Login() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
