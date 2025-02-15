@@ -67,16 +67,16 @@ const NewNoteCards = ({ onNoteCreated }) => {
   }
 
   return (
-    <CardLayout 
-    triggerStyle={"rounded-lg inline-block m-1 max-md:px-2 p-3 relative bg-white border-4 border-zinc-900 text-zinc-900 shadow-[8px_8px_0px_rgba(0,0,0,0.75)]"} trigger={
-      <>
-        <span className="font-semibold text-zinc-900">Adicionar nota</span>
-        <p className="text-sm font-semibold leading-6 text-zinc-500 ">
-          Grave uma nota em áudio que será convertida para texto
-          automaticamente.
-        </p>
-      </>
-    }
+    <CardLayout
+      triggerStyle={"rounded-lg inline-block m-1 max-md:px-2 p-3 relative bg-white border-4 border-zinc-900 text-zinc-900 shadow-[8px_8px_0px_rgba(0,0,0,0.75)]"} trigger={
+        <>
+          <span className="font-semibold text-zinc-900">Adicionar nota</span>
+          <p className="text-sm font-semibold leading-6 text-zinc-500 ">
+            Grave uma nota em áudio que será convertida para texto
+            automaticamente.
+          </p>
+        </>
+      }
       content={
         <form className="flex-1 flex flex-col" action="">
           <div className="flex flex-1 flex-col gap-3 p-5">
