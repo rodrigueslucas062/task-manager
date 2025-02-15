@@ -5,7 +5,7 @@ import { MagnifyingGlass } from "phosphor-react";
 import { collection, addDoc, getDocs, deleteDoc, doc, query, where } from "firebase/firestore";
 import { auth, db } from "@/utils/firebase";
 
-const NotepadCards = () => {
+export const NotepadCards = () => {
   const [search, setSearch] = useState('');
   const [notes, setNotes] = useState([]);
   const user = auth.currentUser;
@@ -92,5 +92,3 @@ const NotepadCards = () => {
     </section>
   );
 };
-
-export default NotepadCards;

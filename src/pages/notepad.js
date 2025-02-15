@@ -1,5 +1,4 @@
-import withAuth from "@/components/Context/authContext/withAuth";
-import NotepadCards from "@/components/NoteCards/NotepadCards";
+import { NotepadCards, withAuth } from "@/components";
 
 function NotePads() {
   return <NotepadCards />;
