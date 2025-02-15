@@ -1,7 +1,7 @@
 import { getConnectedEdges, getIncomers, getOutgoers } from "@xyflow/react";
 import { toast } from "sonner";
 
-export const handleChange = (index, e, setTaskText) => {
+export const handleChange = (e, setTaskText) => {
   const text = e.target.value;
   setTaskText(text);
 };
@@ -79,7 +79,6 @@ export const handleAddStickyNotesNode = (event, setNodes) => {
   const position = { x: event.clientX, y: event.clientY };
   handleAddPostIt({ setNodes, position });
 };
-
 
 export const addSquareNode = ({ setNodes, position = { x: 800, y: 400 } }) => {
   setNodes((nodes) => [
