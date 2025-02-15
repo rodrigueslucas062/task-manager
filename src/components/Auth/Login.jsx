@@ -4,8 +4,9 @@ import { Envelope, Eye, EyeSlash, Lock, SignIn } from "phosphor-react";
 import AuthLayout from "@/components/Layout/AuthLayout";
 import { CustomInput } from "@/components/Inputs/CustomInput";
 import { useRouter } from "next/router";
-import { Spinner } from "@radix-ui/themes";
 import { useAuth } from "@/components";
+import { toast } from "sonner";
+import { Spinner } from "@radix-ui/themes";
 
 export default function Login() {
   const router = useRouter();
@@ -27,23 +28,29 @@ export default function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!isSignIn) {
-      setIsSignIn(true);
-      try {
-        await login(email, password);
-      } catch (err) {
-        setError("Failed to sign in. Please check your credentials.");
-      } finally {
-        setIsSignIn(false);
-        router.push("/tasks");
+    setIsSignIn(true);
+  
+    try {
+      await login(email, password);
+    } catch (err) {
+      let errorMessage = "";
+      if (err.code === 'auth/invalid-credential') {
+        errorMessage = "Email ou senha inválidos.";
+      } else {
+        errorMessage = "Ocorreu um erro ao realizar essa solicitação";
       }
+  
+      setError(errorMessage);
+      toast.error(errorMessage);
+    } finally {
+      setIsSignIn(false);
     }
   };
 
   return (
     <AuthLayout>
       {isAuthenticated && router.push("/tasks")}
-      <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-md bg-zinc-900 p-10 rounded-lg">
+      <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-md bg-zinc-800 p-6 md:p-10 rounded-lg">
         <div className="space-y-2">
           <h2 className="text-white text-2xl font-semibold tracking-wider">
             Synapse
@@ -59,7 +66,8 @@ export default function Login() {
             placeholder="Email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            required />
+            required
+          />
           <CustomInput
             icon={<Lock size={20} weight="duotone" />}
             type={showPassword ? "text" : "password"}
@@ -76,7 +84,8 @@ export default function Login() {
                 {showPassword ? <EyeSlash size={20} weight="duotone" /> : <Eye size={20} weight="duotone" />}
               </span>
             }
-            required />
+            required
+          />
         </div>
         <div className="mt-10">
           <button
@@ -85,14 +94,12 @@ export default function Login() {
             className={`flex items-center justify-between gap-3 w-full px-5 py-2 rounded-lg font-semibold bg-white text-black mb-5 ${isSignIn ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
             Login
-            {isSignIn ? (
-              <Spinner size="2" />
-            ) : (
+            <div className="flex items-center gap-2">
+              {isSignIn && <Spinner loading={true} size="2" />}
               <SignIn size={24} weight="duotone" />
-            )}
+            </div>
           </button>
         </div>
-        {error && <p className="text-red-500">{error}</p>}
         <p className="text-white mt-sm">
           Esqueceu a senha? <Link href="#" className="font-semibold text-white">Clique aqui</Link>
         </p>
