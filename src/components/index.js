@@ -19,3 +19,5 @@ export { doCreateUserWithEmailAndPassword } from "./Context/authContext/auth";
 export { DialogModal } from "./DialogModal";
 export { NavButtons } from "./Navbar/NavButtons";
 export { Toolbox } from "./Jamboard/Toolbox";
+export { UserProfile } from "./Navbar/UserProfile";
+export { PagesMenu } from "./Navbar/PagesMenu";
