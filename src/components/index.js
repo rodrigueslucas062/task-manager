@@ -1,3 +1,4 @@
+export { withAuth } from "./Context/authContext/withAuth";
 export { useAuth } from "./Context/authContext/authContext";
 export { CustomInput } from "./Inputs/CustomInput";
 export { Layout } from "./Layouts/Layout";
@@ -7,7 +8,6 @@ export { CreateAccount } from "./Auth/SignUp";
 export { AuthLayout } from "./Layouts/AuthLayout";
 export { Login } from "./Auth/Login";
 export { AuthProvider } from "./Context/authContext/authContext";
-export { withAuth } from "./Context/authContext/withAuth";
 export { NotepadCards } from "./NoteCards/NotepadCards";
 export { Jira } from "./Jira/Jira";
 export { Jamboard } from "./Jamboard/Jamboard";
