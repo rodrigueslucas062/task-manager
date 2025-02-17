@@ -1,5 +1,5 @@
 import { UserCircleGear } from "phosphor-react"
-import { DialogModal } from "../DialogModal"
+import { DialogModal } from "@/components"
 
 export const UserProfile = () => {
   return (
