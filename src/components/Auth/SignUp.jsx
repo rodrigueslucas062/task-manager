@@ -2,8 +2,10 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Envelope, Eye, EyeSlash, Lock } from "phosphor-react";
-import { AuthLayout, CustomInput, doCreateUserWithEmailAndPassword } from "@/components";
 import { toast } from "sonner";
+import { doCreateUserWithEmailAndPassword } from "@/components/Context";
+import { AuthLayout } from "@/components/Layouts";
+import { CustomInput } from "@/components/Inputs";
 
 export function CreateAccount() {
   const [email, setEmail] = useState("");
