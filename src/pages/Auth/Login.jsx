@@ -8,7 +8,7 @@ import { useAuth } from "@/components/Context";
 import { AuthLayout } from "@/components/Layouts";
 import { CustomInput } from "@/components/Inputs";
 
-export function Login() {
+export default function Login() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

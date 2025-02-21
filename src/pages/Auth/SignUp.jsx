@@ -7,7 +7,7 @@ import { doCreateUserWithEmailAndPassword } from "@/components/Context";
 import { AuthLayout } from "@/components/Layouts";
 import { CustomInput } from "@/components/Inputs";
 
-export function CreateAccount() {
+export default function CreateAccount() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
