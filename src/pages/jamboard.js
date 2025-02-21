@@ -1,4 +1,5 @@
-import { Jamboard, withAuth } from "@/components";
+import { Jamboard } from "@/components";
+import { withAuth } from "@/components/Context";
 
 function JamboardPage() {
   return <Jamboard />;

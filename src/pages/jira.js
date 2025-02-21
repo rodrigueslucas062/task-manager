@@ -1,4 +1,5 @@
-import { Jira, withAuth } from "@/components";
+import { Jira } from "@/components";
+import { withAuth } from "@/components/Context";
 
 function JiraPage() {
   return <Jira />;
