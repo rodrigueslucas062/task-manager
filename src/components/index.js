@@ -2,8 +2,6 @@ export { withAuth } from "./Context/authContext/withAuth";
 export { Layout } from "./Layouts/Layout";
 export { SEO } from "./SEO";
 export { Tasks } from "./ToDo";
-export { CreateAccount } from "../pages/_Auth/SignUp";
-export { Login } from "../pages/_Auth/Login";
 export { AuthProvider } from "./Context/authContext/authContext";
 export { NotepadCards } from "./NoteCards/NotepadCards";
 export { Jira } from "./Jira/Jira";
