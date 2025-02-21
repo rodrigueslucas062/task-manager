@@ -1,12 +1,11 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { ChalkboardSimple, DotsThreeOutline, Flask, Kanban, ListChecks, Notepad, User } from "phosphor-react";
-import { DialogModal, useAuth, NavButtons, UserProfile } from '@/components';
+import { ChalkboardSimple, DotsThreeOutline, Flask, Kanban, ListChecks, Notepad } from "phosphor-react";
+import { DialogModal, NavButtons, UserProfile } from '@/components';
 
 export const Navbar = () => {
   const router = useRouter();
   const [sectionName, setSectionName] = useState('');
-  console.log(useAuth());
 
   useEffect(() => {
     const route = router.pathname;

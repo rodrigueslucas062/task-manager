@@ -1,7 +1,7 @@
 import { questions } from "@/utils/placeholders";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useCallback, useEffect, useState } from "react";
-import { CaretRight, DotsThreeOutline, List, Plus, Trash, X } from "phosphor-react";
+import { CaretRight, DotsThreeOutline, List, Trash, X } from "phosphor-react";
 import { auth, db } from "@/utils/firebase";
 import { collection, addDoc, deleteDoc, doc, getDocs } from "firebase/firestore";
 

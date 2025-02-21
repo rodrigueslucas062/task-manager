@@ -1,6 +1,6 @@
 import { Flask, XCircle } from "phosphor-react"
 import * as Dialog from "@radix-ui/react-dialog";
-import { useAuth } from "./Context/authContext/authContext";
+import { useAuth } from "@/components/Context";
 
 export const DialogModal = ({ children, Icon }) => {
   const { logout } = useAuth();

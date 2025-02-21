@@ -1,4 +1,4 @@
-import Tasks from "./ToDo";
+import { Tasks } from "@/components";
 
 export const Daily = () => {
   return (
